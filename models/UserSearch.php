@@ -11,6 +11,10 @@ use app\models\User;
  */
 class UserSearch extends User
 {
+    public $code;
+    public $number;
+    public $abc;
+
     /**
      * {@inheritdoc}
      */
@@ -19,6 +23,7 @@ class UserSearch extends User
         return [
 //            [['id', 'age', 'salary'], 'integer'],
             [['id', 'age', 'salary', 'name', 'last_name', 'email', 'password', 'created_at', 'updated_at'], 'safe'],
+            [['code', 'number', 'abc'], 'safe'],
         ];
     }
 
@@ -37,15 +42,16 @@ class UserSearch extends User
      */
     public function search($params) // параметр запроса, поле поиска
     {
-        $query = User::find(); //вернёт объкт sql запроса
+        $query = User::find()->joinWith('passport'); //вернёт объкт sql запроса, жадная загрузка
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 5 // пагинация
+                'pageSize' => 10 // пагинация
             ],
         ]);
-
+//        $posts = $dataProvider->getModels();
+//        debug($posts);die();
 
         $this->load($params); // в модель User загрузить полученые параметр $params
 
@@ -66,6 +72,11 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'last_name', $this->last_name])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'password', $this->password]);
+
+        // поиск по паспортам
+        $query->andFilterWhere(['like', 'passport.code', $this->code])
+            ->andFilterWhere(['like', 'passport.number', $this->number])
+            ->andFilterWhere(['like', 'passport.address', $this->abc]);
 
         return $dataProvider;
     }

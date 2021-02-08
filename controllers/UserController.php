@@ -66,4 +66,20 @@ class UserController extends Controller
             ]
         );
     }
+
+    // создание одного пользователя
+    public function actionView($id)
+    {
+//        $user = User::find()->with('passport')->where(['id' => $id])->one();
+        return $this->render('view', [
+            'user' => $this->findModel($id),
+        ]);
+    }
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }

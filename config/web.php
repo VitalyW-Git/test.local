@@ -49,6 +49,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/contact' => 'user/test-user', //переименование 'user/test-user'
+                'user/<id:\d+>' => 'user/view', //переименование '<id:\d+>' параметр id будет числом
             ],
         ],
 

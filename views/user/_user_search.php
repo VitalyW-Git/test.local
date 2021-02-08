@@ -1,10 +1,14 @@
 <?php
 
+
+use app\models\Passport;
 use app\models\User;
-use yii\data\ActiveDataProvider;
+use yii\debug\models\timeline\DataProvider;
+use yii\helpers\Url;
 use yii\web\View;
 
-/** @var ActiveDataProvider $dataProvider */
+/** @var User $users */
+/** @var DataProvider $dataProvider */
 /** @var View $this */
 
 
@@ -14,24 +18,40 @@ use yii\web\View;
     <thead>
     <tr>
         <th scope="col">Имя</th>
-        <th scope="col">last_name</th>
         <th scope="col">Email</th>
-        <th scope="col">salary</th>
-        <th scope="col">age</th>
+        <th scope="col">Зарплата</th>
+        <th scope="col">Code</th>
+        <th scope="col">Number</th>
+        <th scope="col">Вывод пользователя</th>
     </tr>
     </thead>
-
     <?php $users = $dataProvider->models;
     /** @var User $user */
-    foreach ($users as $user) { ?>
-        <tbody>
-        <tr>
-            <td><?= $user->name ?></td>
-            <td><?= $user->last_name ?></td>
-            <td><?= $user->email ?></td>
-            <td><?= $user->salary ?></td>
-            <td><?= $user->age ?></td>
-        </tr>
-        </tbody>
-    <?php } ?>
+    foreach ($users as $user) : ?>
+    <tbody>
+    <tr>
+        <td><?= $user->name ?></td>
+        <td><?= $user->email ?></td>
+        <td><?= $user->salary ?></td>
+        <?php
+        /** @var Passport $passport */
+        $passport = $user->passport;
+        if ($passport) : ?>
+            <td><?= $passport->code ?></td>
+            <td><?= $passport->number ?></td>
+        <? endif; ?>
+        <td>
+            <div class="form-group">
+                <div class="col-lg-offset-1 col-lg-11">
+                    <a class="btn btn-primary" data-pjax="0"
+                       href="<?= Url::toRoute(['user/view', 'id' => $user->id]) ?>">Пользователь</a>
+                </div>
+            </div>
+        </td>
+        <?php endforeach; ?>
+    </tr>
+    </tbody>
 </table>
+
+
+

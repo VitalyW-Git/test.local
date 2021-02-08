@@ -23,6 +23,18 @@ use yii\widgets\ActiveForm;
         <div class="col-sm-6 col-md-2"> <?= $form->field($userSearch, 'salary')->textInput() ?></div>
         <div class="col-sm-6 col-md-2"> <?= $form->field($userSearch, 'age')->textInput() ?></div>
     </div>
+
+    <br>
+    <h4>Фильтр по паспортам</h4>
+    <div class="row">
+        <div class="col-sm-6 col-md-2"> <?= $form->field($userSearch, 'code')->textInput() ?></div>
+        <div class="col-sm-6 col-md-2"> <?= $form->field($userSearch, 'number')->textInput() ?></div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-2"> <?= $form->field($userSearch, 'abc')->textInput() ?></div>
+    </div>
+
     <div>
         <div class="col-sm-6 col-md-6">
             <button type="submit" class="btn btn-success">Применить фильтры</button>

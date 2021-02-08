@@ -2,8 +2,10 @@
 
 
 use app\models\UserSearch;
+use app\assets\TestAsset;
 use yii\data\ActiveDataProvider;
 use yii\web\View;
+use app\widgets\TeamWidget;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
@@ -14,7 +16,13 @@ use yii\widgets\Pjax;
 /** @var View $this */
 /** @var UserSearch $userSearch */
 /** @var ActiveDataProvider $dataProvider */
+
+TestAsset::register($this)
 ?>
+
+<!-- виджет с командами -->
+<?//= TeamWidget::widget()?>
+
 <?php Pjax::begin(); ?>
     <h1>Фильтрация пользователей.</h1>
 
