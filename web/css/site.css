@@ -113,3 +113,14 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.inline li{
+    list-style: none;
+}
+

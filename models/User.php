@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\query\UserQuery;
 use Yii;
 use yii\db\ActiveQuery;
 use \yii\db\ActiveRecord;
@@ -76,5 +77,10 @@ class User extends ActiveRecord
     public function getPassport()
     {
         return $this->hasOne(Passport::class, ['user_id' => 'id']);
+    }
+
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
     }
 }

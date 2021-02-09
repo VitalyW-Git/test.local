@@ -75,11 +75,26 @@ class UserController extends Controller
             'user' => $this->findModel($id),
         ]);
     }
+
     protected function findModel($id)
     {
         if (($model = User::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionAge($age = null) // передаём параметр запроса
+    {
+        $users = User::find()->where(['age' => $age])->all();
+        return $this->render('age', [
+            'users' => $users,
+        ]);
+    }
+
+    public function actionA()
+    {
+        $users = User::find()->successful()->allder()->all();
+        $a = 1;
     }
 }

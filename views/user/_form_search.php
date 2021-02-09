@@ -1,5 +1,6 @@
 <?php
 
+use app\components\widget\AgeMenuWidget;
 use app\models\UserSearch;
 use yii\helpers\Url;
 use yii\web\View;
@@ -41,5 +42,8 @@ use yii\widgets\ActiveForm;
             <a class="btn btn-warning" data-pjax="0" href="<?= Url::to(['/user/search']) ?>">Сбросить фильтры</a>
         </div>
     </div>
+
+
+<?= AgeMenuWidget::widget()?>
 
 <?php ActiveForm::end(); ?>

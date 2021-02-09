@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\components\box\Box;
 use app\components\box\Green;
-use app\components\box\RedChalk;
+use app\components\box\Red;
 use app\components\box\Yellow;
 use yii\web\Controller;
 
@@ -64,20 +64,12 @@ class TestController extends Controller
 
     public function actionBox()
     {
-        $yellow = new Yellow();
-        $red = new RedChalk();
-        $green = new Green();
-
+        $red = new Red();
         $box = new Box();
+        $box->setChalkBox($red);
+        $box->Show();
 
-        $box->setChalkYellow($yellow);
-        $box->setChalkRed($red);
-        $box->setChalkGreen($green);
-        $box->boxShow();
-        /** @var RedChalk $redChalk */
-        //$redChalk = $box->getRedChalk();//->draw();
-        //$redChalk->draw();
-        // $box->drawLineRedChalk();
+
         die();
     }
 }

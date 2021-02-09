@@ -6,4 +6,4 @@ use yii\data\ActiveDataProvider;
 
 
 ?>
-<h3><?= $dataProvider->name ?></h3>
+<!--<h3>--><?//= $dataProvider->name ?><!--</h3>-->
