@@ -78,7 +78,6 @@ class User extends ActiveRecord
     {
         return $this->hasOne(Passport::class, ['user_id' => 'id']);
     }
-
     public static function find()
     {
         return new UserQuery(get_called_class());

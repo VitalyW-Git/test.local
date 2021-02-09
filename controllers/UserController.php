@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Passport;
 use app\models\User;
 use app\models\UserForm;
 use app\models\UserSearch;
 use yii\data\Pagination;
 use yii\debug\models\timeline\DataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use Yii;
 
@@ -66,6 +68,18 @@ class UserController extends Controller
             ]
         );
     }
+    public static  function  getlistName(){
+        $neme = User::find()->groupBy(['name'])->all(); // выбор без павтора
+        $neme = ArrayHelper::map($neme, 'id', 'name'); // приводим к формату выпадающего списка
+        return $neme;
+//        $parents = User::find()
+//            ->select(['c.id', 'c.name'])
+//            ->join('JOIN', 'passport c', 'passport.user_id = c.id')
+//            ->distinct(true)
+//            ->all();
+//
+//        return ArrayHelper::map($parents, 'id', 'name');
+    }
 
     // создание одного пользователя
     public function actionView($id)
@@ -83,7 +97,7 @@ class UserController extends Controller
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
+    //вывод пользователей с рдним возростом
     public function actionAge($age = null) // передаём параметр запроса
     {
         $users = User::find()->where(['age' => $age])->all();
