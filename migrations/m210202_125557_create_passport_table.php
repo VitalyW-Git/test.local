@@ -24,12 +24,12 @@ class m210202_125557_create_passport_table extends Migration
         ]);
 
         $this->addForeignKey('$fk_user_id',
-                                 'passport',
-                                'user_id',
-                                   'user',
-                                   'id',
-                                  'cascade',
-                                'cascade');
+         'passport',
+        'user_id',
+           'user',
+           'id',
+          'cascade',
+        'cascade');
         }
     /**
      * {@inheritdoc}

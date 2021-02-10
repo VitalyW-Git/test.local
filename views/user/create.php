@@ -23,6 +23,7 @@ $this->title = 'Create';
             <?= $form->field($model, 'password')->passwordInput() ?>
             <?= $form->field($model, 'age') ?>
             <?= $form->field($model, 'salary') ?>
+            <?= $form->field($model, 'phone') ?>
         </div>
     </div>
     <div class="form-group">

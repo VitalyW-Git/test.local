@@ -2,8 +2,9 @@
 
 namespace app\models;
 
-use app\models\query\UserQuery;
 use Yii;
+use app\models\validators\PhoneValidator;
+use app\models\query\UserQuery;
 use yii\db\ActiveQuery;
 use \yii\db\ActiveRecord;
 
@@ -19,6 +20,7 @@ use \yii\db\ActiveRecord;
  * @property int|null $salary
  * @property string $created_at
  * @property string|null $updated_at
+ * @property string $phone
  *
  * @property Passport[] $passport
  */
@@ -50,6 +52,7 @@ class User extends ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'last_name', 'email'], 'string', 'max' => 255],
             [['email'], 'unique'],
+            [['phone'], PhoneValidator::class ],
         ];
     }
     /**

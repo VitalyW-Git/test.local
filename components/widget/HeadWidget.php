@@ -35,6 +35,4 @@ class HeadWidget extends Widget
             'players' => $players,
         ]);
     }
-
-
 }
