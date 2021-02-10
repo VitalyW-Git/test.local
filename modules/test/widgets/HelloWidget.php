@@ -4,7 +4,7 @@ namespace app\modules\test\widgets;
 
 use yii\base\Widget;
 
-class AgeMenuWidget extends Widget
+class HelloWidget extends Widget
 {
     public function run()
     {

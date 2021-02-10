@@ -1,14 +1,10 @@
 <?php
 
-use app\modules\test\widgets\AgeMenuWidget;
-
+use app\modules\test\widgets\HelloWidget;
+//use app\modules\test\widgets\HelloWidgetAsset;
+//
+//HelloWidgetAsset::register($this)
 ?>
-
-
-<?php AgeMenuWidget::widget() ?>
-
-
-
 
 <div class="test-default-index">
     <h1><?= $this->context->action->uniqueId ?></h1>
@@ -22,3 +18,6 @@ use app\modules\test\widgets\AgeMenuWidget;
         <code><?= __FILE__ ?></code>
     </p>
 </div>
+
+<?= HelloWidget::widget() ?>
+
