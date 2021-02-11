@@ -35,7 +35,7 @@ use yii\web\View;
                 'options' => [
                     0 => ['selected' => true]
                 ]
-            ],
+            ]
         ) ?>
 <!--                --><?//= $form->field($gangsterSearch, 'status')->dropDownList([0 => 'died', 1 => 'alive']) ?>
     </div>
