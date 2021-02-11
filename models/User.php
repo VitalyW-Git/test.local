@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\interfaces\IHaveName;
 use Yii;
 use app\models\validators\PhoneValidator;
 use app\models\query\UserQuery;
@@ -24,7 +25,7 @@ use \yii\db\ActiveRecord;
  *
  * @property Passport[] $passport
  */
-class User extends ActiveRecord
+class User extends ActiveRecord implements IHaveName
 {
     /**
      * {@inheritdoc}
@@ -84,5 +85,13 @@ class User extends ActiveRecord
     public static function find()
     {
         return new UserQuery(get_called_class());
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\models\interfaces\IHaveName;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "gun".
@@ -15,7 +17,7 @@ use Yii;
  *
  * @property Gangster $gangster
  */
-class Gun extends \yii\db\ActiveRecord
+class Gun extends ActiveRecord implements IHaveName
 {
     /**
      * {@inheritdoc}
@@ -61,5 +63,13 @@ class Gun extends \yii\db\ActiveRecord
     public function getGangster()
     {
         return $this->hasOne(Gangster::class, ['id' => 'gangster_id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->gun;
     }
 }

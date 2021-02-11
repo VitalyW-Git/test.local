@@ -44,6 +44,8 @@ AppAsset::register($this);
             ['label' => 'User', 'url' => ['/user/']],
             ['label' => 'Search', 'url' => ['/user/search']],
             ['label' => 'Team', 'url' => ['/team']],
+            ['label' => 'Mandarin', 'url' => ['/test/default/mandarin']],
+            ['label' => 'Hello', 'url' => ['/test/default/']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -57,7 +59,10 @@ AppAsset::register($this);
                 . '</li>'
             )
         ],
+
     ]);
+
+
     NavBar::end();
     ?>
 

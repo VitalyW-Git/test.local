@@ -1,10 +1,15 @@
 <?php
 
-use app\modules\test\widgets\HelloWidgetAsset;
+/**   */
 
-HelloWidgetAsset::register($this)
+use app\modules\test\assets\HelloWidgetAsset;
+
+HelloWidgetAsset::register($this);
 ?>
 
-<div>
-    <h1><span id="page-header">Example page header </span><small>Subtext for header</small></h1>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h1><span class="color-title">Hello wigdet</span></h1>
+    </div>
 </div>

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Gun;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,8 +63,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $users = User::find()->limit('5')->all();
+        $guns = Gun::find()->all();
+        return $this->render('index', [
+            'users' => $users,
+            'guns' => $guns,
+        ]);
     }
+
 
     /**
      * Login action.

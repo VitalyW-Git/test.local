@@ -18,6 +18,9 @@ $config = [
         ],
     ],
     'components' => [
+        'assetManager' => [
+            'linkAssets' => true,
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'qUXv7WVWBAUlpqnreIn86_CBuQBrLTdD',
@@ -56,6 +59,8 @@ $config = [
             'rules' => [
                 '/contact' => 'user/test-user', //переименование 'user/test-user'
                 'user/<id:\d+>' => 'user/view', //переименование '<id:\d+>' параметр id будет числом
+//                '/test/site/index' => 'site/index',
+                'abc' => 'user/search',
             ],
         ],
 
