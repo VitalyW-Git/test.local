@@ -36,7 +36,12 @@ AppAsset::register($this);
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => [
+            'id'=>'navid',
+            'class' => 'navbar-nav',
+            'style'=>'float: left; font-size: 16px;',
+            'data'=>'menu',
+        ],
         'items' => [
 //            ['label' => 'Home', 'url' => ['/site/index']],
 //            ['label' => 'About', 'url' => ['/site/about']],
@@ -44,8 +49,16 @@ AppAsset::register($this);
             ['label' => 'User', 'url' => ['/user/']],
             ['label' => 'Search', 'url' => ['/user/search']],
             ['label' => 'Team', 'url' => ['/team']],
-            ['label' => 'Mandarin', 'url' => ['/test/default/mandarin']],
             ['label' => 'Hello', 'url' => ['/test/default/']],
+            ['label' => 'Gangster, Mandarin',
+                'url' => ['/user/search'],
+                'options'=>['class'=>'dropdown'],
+                'template' => '<a href="{url}" class="url-class">{label}</a>',
+                'items' => [
+                    ['label' => 'Gangster', 'url' => ['/gangster']],
+                    ['label' => 'Mandarin', 'url' => ['/test/default/mandarin']],
+                ]
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -59,6 +72,7 @@ AppAsset::register($this);
                 . '</li>'
             )
         ],
+
 
     ]);
 

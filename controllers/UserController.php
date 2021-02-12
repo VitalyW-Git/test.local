@@ -19,7 +19,7 @@ class UserController extends Controller
     {
 //       $usersnativsql = Yii::$app->db->createCommand('SELECT * FROM user')->queryAll();
         $sqlQuery = User::find()->with('passport');
-        $pages = new Pagination( ['totalCount' => $sqlQuery->count(), 'pageSize' => 4] );
+        $pages = new Pagination(['totalCount' => $sqlQuery->count(), 'pageSize' => 4]);
         $users = $sqlQuery->offset($pages->offset)->limit($pages->limit)->all();
         return $this->render('index', [
             'users' => $users,
@@ -39,7 +39,7 @@ class UserController extends Controller
         $id = 100;
         $sql = 'select * from user where id = :id';
         $records = $db->createCommand($sql)->bindValues([':id' => $id])->queryAll();
-        return $this->render('test-user', ['users' => $records] );
+        return $this->render('test-user', ['users' => $records]);
     }
 
     // добавление пользователя в базу данных
@@ -63,12 +63,14 @@ class UserController extends Controller
         $userSearch = new UserSearch();
         $dataProvider = $userSearch->search(Yii::$app->request->queryParams);
         return $this->render('search', [
-            'dataProvider' => $dataProvider,
-            'userSearch' => $userSearch,
+                'dataProvider' => $dataProvider,
+                'userSearch' => $userSearch,
             ]
         );
     }
-    public static  function  getlistName(){
+
+    public static function getlistName()
+    {
         $neme = User::find()->groupBy(['name'])->all(); // выбор без павтора
         $neme = ArrayHelper::map($neme, 'id', 'name'); // приводим к формату выпадающего списка
         return $neme;
@@ -97,6 +99,7 @@ class UserController extends Controller
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
     //вывод пользователей с рдним возростом
     public function actionAge($age = null) // передаём параметр запроса
     {

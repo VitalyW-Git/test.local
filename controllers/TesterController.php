@@ -2,14 +2,13 @@
 
 namespace app\controllers;
 
-use app\components\box\Box;
-use app\components\box\Green;
-use app\components\box\Red;
-use app\components\box\Yellow;
+
+use app\models\Gangster;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 
-class TestController extends Controller
+class TesterController extends Controller
 {
 
     public function actionIndex()
@@ -64,12 +63,38 @@ class TestController extends Controller
 
     public function actionBox()
     {
-        $red = new Red();
-        $box = new Box();
-        $box->setChalkBox($red);
-        $box->Show();
+//        $red = new Red();
+//        $box = new Box();
+//        $box->setChalkBox($red);
+//        $box->Show();
+//
+//
+//        die();
+    }
+    public function actionGan()
+    {
+        $gangster = Gangster::find()
+//            ->andWhere(['status'=> Gangster::STATUS_DISABLE ])
+            ->all();
 
+        $users = ArrayHelper::toArray($gangster, [
+            'app\models\Gangster' => [
+                'id',
+                'name',
+                'status'
+            ]
+        ]);
 
+//        $result = ArrayHelper::getColumn($gangster, function ($element) { // получаем значение индекса price
+//            return $element['name'];
+//        });
+//        $userdata = ArrayHelper::index($gangster, 'name', 'status');
+//        $result = ArrayHelper::map($gangster, 'name', 'name'); // подставление ключ значение
+//        ArrayHelper::multisort($gangster, ['age', 'name'], [SORT_ASC, SORT_DESC]);// возвращает проброшенное значения
+//        $result = ArrayHelper::index($gangster, function ($element) {
+//            return $element['name'];
+//        });
+        debug($users);
         die();
     }
 }
