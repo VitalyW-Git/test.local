@@ -10,7 +10,7 @@ use app\models\User;
 
 <?php foreach ($users as $user) :?>
     <ul>
-        <li><?= $user->id ?> <?= $user->name ?> <?= $user->age ?></li>
+        <li><?= $user->id ?> <?= $user->name ?> <?= $user->age ?> </li>
     </ul>
 <?php endforeach; ?>
 

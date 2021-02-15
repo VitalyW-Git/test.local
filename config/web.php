@@ -62,7 +62,8 @@ $config = [
 //                '/test/site/index' => 'site/index',
 //                'abc' => 'user/search',
                 'user/order/<id:\d+>' => 'user/order',
-                'user/delete/<id:\d+>' => 'user/delete'
+                'user/delete/<id:\d+>' => 'user/delete',
+                'book/<id:\d+>' => 'book/index',
             ],
         ],
 

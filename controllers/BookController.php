@@ -12,21 +12,43 @@ class BookController extends Controller
 {
     public function actionIndex()
     {
-//        $genres = Genre::find()->one()->getBookGenres()->with('book')->with('genre')->all();
-//        $genres = Book::find()->one()->getBookGenres()->with('genre')->with('book')->asArray()->all();
 //        $genres = Book::find()->one()->getBookGenres()->with('genre')->with('book')->asArray()->all();
 
-        /** @var Book $books */
-        $books = Book::find()->with('genres')->all();
+//        $id = \Yii::$app->request->get('id');
+        $model10 = Book::find()
+            ->select('book.*')
+            ->leftJoin('book_genre', '`book_genre`.`id_book` = `book`.`id`')
+//            ->where(['book.id' => $id])
+            ->with('genres')
+            ->all();
 
         /** @var Genre $genres */
-        $genres = Genre::find()->with('books')->all();
-//        $tags = $genres->getGenres();
-//        debug($genres);die();
-        return $this->render('book', [
+        $genres = Genre::find()
+            ->with('books')
+            ->all();
+
+        /** @var Book $books */
+        $books = Book::find()
+            ->with('genres')
+            ->all();
+
+//        debug($model10);die();
+        return $this->render('index', [
+            'genres' => $genres,
             'books' => $books,
-            'genres' => $genres
             ]
         );
     }
+
+//    public function actionBook($id)
+//    {
+//        \Yii::$app->request
+//        $books = Book::find()
+//            ->select('book.*')
+//            ->leftJoin('book_genre', '`book_genre`.`id_book` = `book`.`id`')
+//            ->where(['book.id' => $id])
+//            ->with('genres')
+//            ->all();
+//    }
+
 }

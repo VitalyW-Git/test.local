@@ -22,7 +22,6 @@ use yii\web\View;
     'action' => ['/gangster/index'], // страница поиска
     'method' => 'GET',
 ]); ?>
-<?php $type = [0 => 'Мёртвый', 1 => 'Живой']; ?>
 <div class="row">
     <div class="col-sm-6 col-md-2">
         <?= $form->field($gangsterSearch, 'age')->textInput() ?>
@@ -41,10 +40,10 @@ use yii\web\View;
     </div>
 </div>
 
-<div class="btn-group" role="group" aria-label="...">
+<div class="btn-group" role="group" aria-label="">
     <button type="submit" class="btn btn-danger">Применить фильтры</button>
 </div>
-<div class="btn-group" role="group" aria-label="...">
+<div class="btn-group" role="group" aria-label="">
     <a class="btn btn-success" data-pjax="0" href="<?= Url::to(['/gangster']) ?>">Сбросить фильтры</a>
 </div>
 <?php ActiveForm::end(); ?>
