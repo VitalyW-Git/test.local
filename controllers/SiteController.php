@@ -40,6 +40,17 @@ class SiteController extends Controller
         ];
     }
 
+    // отключаем проверку токена
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['index'])) {
+            $this->enableCsrfValidation = false;
+        }
+        //можно вывести ошибку
+        Yii::$app->session->setFlash('danger', 'Text');
+        return parent::beforeAction($action);
+    }
+
     /**
      * {@inheritdoc}
      */

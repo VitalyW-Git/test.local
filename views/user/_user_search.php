@@ -29,7 +29,7 @@ use yii\web\View;
     /** @var User $user */
     foreach ($users as $user) : ?>
     <tbody>
-    <tr>
+    <tr class="data-user-delete<?= $user->id ?>">
         <td><?= $user->name ?></td>
         <td><?= $user->email ?></td>
         <td><?= $user->salary ?></td>
@@ -45,6 +45,22 @@ use yii\web\View;
                 <div class="col-lg-offset-1 col-lg-11">
                     <a class="btn btn-primary" data-pjax="0"
                        href="<?= Url::toRoute(['user/view', 'id' => $user->id]) ?>">Пользователь</a>
+                </div>
+            </div>
+        </td>
+        <td>
+
+            <div class="form-group">
+                <div class="col-lg-offset-1 col-lg-11">
+                    <a class="btn btn-danger js-btn-user-delete" data-user-delete-id="<?= $user->id ?>" data-pjax="0"
+                       href="<?= Url::toRoute(['user/delete', 'id' => $user->id]) ?>">Delete</a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-1 col-lg-11">
+                    <a class="btn btn-primary js-btn-user-order" data-user-id="<?= $user->id ?>" data-pjax="0"
+                       href="<?= Url::toRoute(['user/order-ajax', 'id' => $user->id]) ?>">Ajax Order</a>
                 </div>
             </div>
         </td>

@@ -1,6 +1,7 @@
 <?php
 
 
+use app\components\widget\UserOrderWidget;
 use app\controllers\UserController;
 use app\models\User;
 use app\models\UserSearch;
@@ -26,8 +27,17 @@ TestAsset::register($this)
 
 <!-- виджет с командами -->
 <?//= TeamWidget::widget()?>
+<div id="js-user-views">
+    <?= UserOrderWidget::widget()?>
+</div>
 
-<?php Pjax::begin(); ?>
+
+<h1 id="js-count-text"></h1>
+<h1 id="js-user-error"></h1>
+
+
+<?php //Pjax::begin(); ?>
+
     <h1>Фильтрация пользователей.</h1>
 
         <div class="container">
@@ -111,4 +121,5 @@ TestAsset::register($this)
         ]);
         */ ?>
 <!--    </div>-->
-<?php Pjax::end(); ?>
+
+<?php //Pjax::end(); ?>

@@ -2,18 +2,31 @@
 
 namespace app\controllers;
 
+use app\components\widget\UserOrderWidget;
 use app\models\Passport;
 use app\models\User;
 use app\models\UserForm;
+use app\models\UserOrder;
 use app\models\UserSearch;
 use yii\data\Pagination;
 use yii\debug\models\timeline\DataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use Yii;
+use yii\web\Response;
 
 class UserController extends Controller
 {
+
+    // отключаем проверку токена
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['order-ajax'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
     //связь один к одному
     function actionIndex()
     {
@@ -114,4 +127,63 @@ class UserController extends Controller
         $users = User::find()->successful()->allder()->all();
         $a = 1;
     }
+
+    public function actionOrder($id)
+    {
+        $order = new UserOrder();
+        $order->price = mt_rand(50000, 80000);
+        $order->gangster_id = mt_rand(2, 10);
+        $order->user_id = $id;
+        $order->save();
+        return $this->redirect(['/user/search']);
+    }
+
+    public function actionOrderAjax() //при get запросе перелаём id в action
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON; // тип ответа FORMAT_JSON
+        $success = true;
+        $error = null;
+        $id = Yii::$app->request->post('id');
+        $order = new UserOrder();
+        $order->price = mt_rand(50000, 80000);
+        $order->gangster_id = mt_rand(2, 10);
+        $order->user_id = $id;
+        if(!$order->save()){
+            $firstErrorAsArray = $order->firstErrors;
+            $firstKey = array_key_first($firstErrorAsArray);
+            $error = $firstErrorAsArray[$firstKey];
+            $success = false;
+        }
+        $order->save();
+
+        return [
+            'error' => $error,
+            'success' => $success,
+            'view' => UserOrderWidget::widget(),
+        ];
+
+    }
+
+    public function actionDelete($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON; // тип ответа FORMAT_JSON
+        $success = true;
+        $error = null;
+
+        /** @var User $user */
+        $user = User::find()->where(['id' => $id])->one();
+        if(!$user->delete()){
+            $firstErrorAsArray = $user->firstErrors;
+            $firstKey = array_key_first($firstErrorAsArray);
+            $error = $firstErrorAsArray[$firstKey];
+            $success = false;
+        }
+
+        return [
+            'error' => $error,
+            'success' => $success,
+            'view' => UserOrderWidget::widget(),
+        ];
+    }
+
 }

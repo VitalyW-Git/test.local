@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/script.js',
+        'js/btn-order-ajax.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -60,7 +60,9 @@ $config = [
                 '/contact' => 'user/test-user', //переименование 'user/test-user'
                 'user/<id:\d+>' => 'user/view', //переименование '<id:\d+>' параметр id будет числом
 //                '/test/site/index' => 'site/index',
-                'abc' => 'user/search',
+//                'abc' => 'user/search',
+                'user/order/<id:\d+>' => 'user/order',
+                'user/delete/<id:\d+>' => 'user/delete'
             ],
         ],
 
