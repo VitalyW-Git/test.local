@@ -12,6 +12,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 use yii\helpers\Url;
 use yii\web\View;
+use yii\widgets\Pjax;
 
 /** @var Gangster[] $gangsters */
 /** @var Pagination $pages */
@@ -20,6 +21,8 @@ use yii\web\View;
 /** @var View $this */
 
 GangsterAsset::register($this) ?>
+
+<?php Pjax::begin(); ?>
 
 <div class="container">
     <h3>Поиск</h3>
@@ -77,5 +80,4 @@ GangsterAsset::register($this) ?>
     ]);
     ?>
 </div>
-
-<p id="output"></p>
+<?php Pjax::end() ?>

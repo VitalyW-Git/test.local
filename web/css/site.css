@@ -123,3 +123,45 @@ a.desc:after {
 .inline li{
     list-style: none;
 }
+
+.block-row {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+}
+.block-item {
+    width: 39%;
+    height: 254px;
+    background: #17a2b8;
+    border-radius: 10px;
+    margin: 10px;
+    color: white;
+
+}
+.cards-b-gan {
+    border-radius: 10px;
+}
+.card-title{
+    border-bottom: 1px solid white;
+}
+.card-body{
+    margin: 15px;
+    position: relative;
+}
+.line {
+    content: "";
+    width: 2px;
+    height: 200px;
+    background: white;
+    display: block;
+    position: absolute;
+    right: 0;
+}
+.btn-warning{
+    margin: 5px;
+}
+
+.panel-b-click {
+    margin: 12px;
+    border-radius: 18px;
+}

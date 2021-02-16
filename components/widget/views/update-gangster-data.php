@@ -9,32 +9,27 @@ use yii\web\View;
 
 ?>
 
-<div class="panel panel-default">
+<div class="card cards-b-gan bg-primary">
     <div class="panel-heading">
-        <h3 class="panel-title"> <b><?= $gangster->name?> </b> </h3>
+        <h2 class="card-title"> <b><?= $gangster->name?> </b> </h2>
     </div>
-    <div class="panel-body">
-        <ul>
-            <li>
-                Статус:
-                <span id="js-update-status-<?= $gangster->id ?>"
-                      data-js-update-status="<?= $gangster->status ?>"
-                >
-                    <?= $gangster->status ?>
-                </span>
-            </li>
-            <li>Возраст: <?= $gangster->age ?></li>
-        </ul>
+    <div class="panel-body panel-b-click">
+                <h3>Статус:
+                    <span id="js-update-status-<?= $gangster->id ?>" data-js-update-status="<?= $gangster->status ?>">
+                        <?= $gangster->status ?>
+                    </span>
+                </h3>
+            <h3>Возраст: <?= $gangster->age ?></h3>
     </div>
 
-    <div class="panel-footer">
+    <div class="card-body">
         <div class="cards-margin">
             <a class="btn btn-success" href="<?= Url::toRoute(['gangster/view', 'id' => $gangster->id]) ?>">Подробнее</a>
 
-            <?php /*
+
             <a class="btn btn-danger js-status-gangster" data-gangster-id="<?= $gangster->id ?>"
                href="<?= Url::toRoute(['gangster/status', 'id' => $gangster->id]) ?>">Изменить татус</a>
-            */ ?>
+
 
             <a class="btn btn-warning js-change-gangster" data-update-gangster-id="<?= $gangster->id ?>"
                href="#">Изменить данные

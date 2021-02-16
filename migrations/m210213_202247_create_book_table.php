@@ -15,7 +15,10 @@ class m210213_202247_create_book_table extends Migration
         $this->createTable('{{%book}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(30),
+            'author' => $this->string(30),
+            'images' => $this->string(30),
             'year' => $this->integer(30),
+            'description' => $this->string(500),
         ]);
     }
 

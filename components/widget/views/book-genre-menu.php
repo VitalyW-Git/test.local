@@ -16,12 +16,10 @@ use yii\web\View;
     <?php
     /** @var Genre $genre */
     foreach ($genres as $genre) : ?>
-        <a href="#" class="list-group-item">
             <?= Html::a(
                 $genre->name,
                 ['/book/genre', 'id'=>$genre->id],
-                ['class' => 'btn btn-primary']
+                ['class' => 'list-group-item']
             ) ?>
-        </a>
     <? endforeach; ?>
 </div>
