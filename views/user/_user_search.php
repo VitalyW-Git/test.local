@@ -23,6 +23,7 @@ use yii\web\View;
         <th scope="col">Code</th>
         <th scope="col">Number</th>
         <th scope="col">Вывод пользователя</th>
+        <th scope="col">Заказ</th>
     </tr>
     </thead>
     <?php $users = $dataProvider->models;
@@ -43,24 +44,23 @@ use yii\web\View;
         <td>
             <div class="form-group">
                 <div class="col-lg-offset-1 col-lg-11">
-                    <a class="btn btn-primary" data-pjax="0"
+                    <a class="btn btn-primary btn-block" data-pjax="0"
                        href="<?= Url::toRoute(['user/view', 'id' => $user->id]) ?>">Пользователь</a>
                 </div>
             </div>
         </td>
         <td>
-
-            <div class="form-group">
+            <div class="form-group row">
                 <div class="col-lg-offset-1 col-lg-11">
-                    <a class="btn btn-danger js-btn-user-delete" data-user-delete-id="<?= $user->id ?>" data-pjax="0"
-                       href="<?= Url::toRoute(['user/delete', 'id' => $user->id]) ?>">Delete</a>
+                    <a class="btn btn-primary btn-sm active btn-block" data-user-delete-id="<?= $user->id ?>" data-pjax="0"
+                       href="<?= Url::toRoute(['user/delete', 'id' => $user->id]) ?>">Ajax Delete order</a>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row">
                 <div class="col-lg-offset-1 col-lg-11">
-                    <a class="btn btn-primary js-btn-user-order" data-user-id="<?= $user->id ?>" data-pjax="0"
-                       href="<?= Url::toRoute(['user/order-ajax', 'id' => $user->id]) ?>">Ajax Order</a>
+                    <a class="btn btn-success btn-sm active btn-block" data-user-id="<?= $user->id ?>" data-pjax="0"
+                       href="<?= Url::toRoute(['user/order-ajax', 'id' => $user->id]) ?>">Ajax Add order</a>
                 </div>
             </div>
         </td>

@@ -54,11 +54,15 @@ class Book extends ActiveRecord
      *
      * @return ActiveQuery
      */
-//    public function getBookGenres()
-//    {
-//        return $this->hasMany(BookGenre::class, ['id_book' => 'id']);
-//    }
+    public function getBookGenres()
+    {
+        return $this->hasMany(BookGenre::class, ['id_book' => 'id']);
+    }
 
+    /**
+     * @return ActiveQuery
+     * @throws \yii\base\InvalidConfigException
+     */
     public function getGenres()
     {
         return $this->hasMany(Genre::class, ['id' => 'id_genre'])

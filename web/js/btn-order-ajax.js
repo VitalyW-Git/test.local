@@ -7,7 +7,7 @@ $(document).ready(function () {
         let userDeleteId = btnDeleteAjax.attr('data-user-delete-id');
 
         sendAjax(userId);
-        sendDeleteAjax(userDeleteId);
+        deleteIdAjax(userDeleteId);
         // console.log(btnDeleteAjax);
     })
 });
@@ -25,7 +25,7 @@ function sendAjax(id) {
     });
 }
 
-function sendDeleteAjax(id) {
+function deleteIdAjax(id) {
     let url = '/user/delete';
     let data = {id: id};
     $.get(url, data).done(function (data) {
@@ -38,7 +38,6 @@ function sendDeleteAjax(id) {
 
             console.log(data)
         }
-
     });
 }
 

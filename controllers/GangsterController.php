@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
+use app\components\widget\UpdateGangsterDataWidget;
 use app\models\Gangster;
 use app\models\GangsterSearch;
-use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use Yii;
+use yii\web\Response;
 
 /** @var Gangster[] $gangsters */
 class GangsterController extends Controller
@@ -52,5 +53,65 @@ class GangsterController extends Controller
         $status = ArrayHelper::map($status, 'id', 'status'); // приводим к формату выпадающего списка
 
         return $status;
+    }
+
+
+
+
+    public function actionStatus($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON; // тип ответа FORMAT_JSON
+        $success = true;
+        $error = null;
+
+        /** @var Gangster $gangster */
+        $gangster = Gangster::find()->where(['id' => $id])->one();
+
+        $gangster->status = (int)(!$gangster->status);
+
+        if(!$gangster->save()){
+            $firstErrorAsArray = $gangster->firstErrors;
+            $firstKey = array_key_first($firstErrorAsArray);
+            $error = $firstErrorAsArray[$firstKey];
+            $success = false;
+        }
+
+        return [
+            'error' => $error,
+            'success' => $success,
+            'view' => $gangster,
+        ];
+    }
+
+    /**
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
+    public function actionUpdateGangster($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $success = true;
+        $error = null;
+
+        /** @var Gangster $gangster */
+        $gangster = Gangster::find()->where(['id' => $id])->one();
+
+        $gangster->name = $gangster->name .  ' ' . '!';
+        $gangster->age = $gangster->age + 1;
+        $gangster->status = (int)(!$gangster->status);
+
+        if(!$gangster->save()){
+            $firstErrorAsArray = $gangster->firstErrors;
+            $firstKey = array_key_first($firstErrorAsArray);
+            $error = $firstErrorAsArray[$firstKey];
+            $success = false;
+        }
+
+        return [
+            'error' => $error,
+            'success' => $success,
+            'html' => UpdateGangsterDataWidget::widget(['gangster' => $gangster]),
+        ];
     }
 }

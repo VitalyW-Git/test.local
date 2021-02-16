@@ -154,7 +154,6 @@ class UserController extends Controller
             $error = $firstErrorAsArray[$firstKey];
             $success = false;
         }
-        $order->save();
 
         return [
             'error' => $error,
