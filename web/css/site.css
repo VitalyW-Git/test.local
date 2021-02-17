@@ -138,6 +138,9 @@ a.desc:after {
     color: white;
 
 }
+.block-player {
+    height: 400px;
+}
 .cards-b-gan {
     border-radius: 10px;
 }
@@ -164,4 +167,8 @@ a.desc:after {
 .panel-b-click {
     margin: 12px;
     border-radius: 18px;
+}
+#cryptoform-currencys label{
+    margin-right: 10px;
+    margin-top: 6px;
 }

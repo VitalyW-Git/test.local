@@ -8,8 +8,6 @@ $(document).ready(function () {
         let btnOrderAjax = $(this);
         let gangsterId = btnOrderAjax.attr('data-update-gangster-id');
         updateGangsterAjax(gangsterId);
-
-
     })
 
     $('body').on('click', '.js-status-gangster', function (e) {
@@ -23,8 +21,7 @@ $(document).ready(function () {
          * @type {number}
          */
         var randomize = Math.floor(Math.random()*myColors.length);
-        $('.panel-body').css("background-color", myColors[randomize]);
-
+        $('.panel-b-click').css("background-color", myColors[randomize]);
     })
 });
 
@@ -44,7 +41,7 @@ function updateGangsterAjax(id) {
 }
 
 /**
- * Изменяме статтус Gangster
+ * Изменение статуса Gangster
  * @param id
  */
 function updateStatusAjax(id) {

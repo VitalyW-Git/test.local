@@ -4,7 +4,6 @@ use app\assets\GangsterAsset;
 use app\components\widget\UpdateGangsterDataWidget;
 use app\controllers\GangsterController;
 use app\models\Gangster;
-use app\models\Gun;
 use app\models\GangsterSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
