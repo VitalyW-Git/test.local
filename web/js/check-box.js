@@ -1,12 +1,14 @@
 $(document).ready(function () {
-    $("#wrap-check-box input").change( function( e ) {
+    let data = [];
+
+    $("#cryptoform-currencys input").change( function( e ) {
         e.preventDefault();
-        var data = $(this).serializeArray()
+        data = $('form#w0').serializeArray()
         updateData(data)
     });
     $("#cryptoform-altcoin").change( function( e ) {
         e.preventDefault();
-        var data = $('form#w0').serializeArray()
+        data = $('form#w0').serializeArray()
         updateData(data)
     });
 });
@@ -15,6 +17,7 @@ $(document).ready(function () {
 
 function updateData(data) {
     let url = '/crypto/check-box';
+    console.log(data);
     $.get(url, data).done(function (data) {
         if (data.success) {
             // let selector = '#js-gangster-id-' + id;

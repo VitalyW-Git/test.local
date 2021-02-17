@@ -19,6 +19,9 @@ class CheckBoxAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+    public $css = [
+        'css/check-box.css',
+    ];
     public $js = [
         'js/check-box.js',
     ];

@@ -7,11 +7,10 @@ use yii\httpclient\Client;
 
 class CryptoCompareApi
 {
-    /** @var string */
-    private $url;
-
+    /** @var $url string */
+    private $url; // сервиса
+    /** @var $fsym string */
     private $fsym;
-
     private $tsyms;
 
     public function __construct(CryptoForm $cryptoForm)

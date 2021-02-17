@@ -33,8 +33,8 @@ class CryptoForm extends Model
     public function attributeLabels()
     {
         return [
-            'altcoin' => 'Altcoin',
-            'currencys' => 'Валюты',
+            'altcoin' => 'ALRCOIN',
+            'currencys' => 'ВАЛЮТА',
         ];
     }
     public static function getAltcoinList():array
