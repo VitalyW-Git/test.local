@@ -22,7 +22,7 @@ use app\models\CryptoForm;
 </div>
 <br>
 <div class="container">
-    <div class="col-sm-3">
+    <div class="col-sm-3" id="js-crypto-data">
         <?= CryptoConverterWidget::widget([
             'data' => $data,
             'cryptoForm' => $cryptoForm,

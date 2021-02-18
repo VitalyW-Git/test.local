@@ -111,7 +111,9 @@ class GangsterController extends Controller
         return [
             'error' => $error,
             'success' => $success,
-            'html' => UpdateGangsterDataWidget::widget(['gangster' => $gangster]),
+            'html' => UpdateGangsterDataWidget::widget([
+                'gangster' => $gangster
+            ]),
         ];
     }
 }

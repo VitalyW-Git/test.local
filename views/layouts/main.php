@@ -47,6 +47,7 @@ AppAsset::register($this);
 //            ['label' => 'About', 'url' => ['/site/about']],
 //            ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'Book', 'url' => ['/book/index']],
+            ['label' => 'Crypto ', 'url' => ['/crypto/index']],
             ['label' => 'User', 'url' => ['/user/']],
             ['label' => 'Search', 'url' => ['/user/search']],
             ['label' => 'Team', 'url' => ['/team']],

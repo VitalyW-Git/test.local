@@ -124,10 +124,36 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+        $data = [
+            'ContactForm' => [
+                'name' => 'Rom',
+                'email' => 'test@yandex.ru',
+                'subject' => 'fdgfdg',
+                'body' => 'dsfsd',
+                'verifyCode' => 'vCode'
+            ]
+        ];
+
+        $simpleData = [
+            'name' => 'Rom',
+            'email' => 'test@yandex.ru',
+            'subject' => 'fdgfdg',
+            'body' => 'dsfsd',
+            'verifyCode' => 'vCode'
+        ];
+
+
         $model = new ContactForm();
+//        $model->load($data, 'ContactForm');
+//        $model->attributes;
+//        $data = \Yii::$app->request->post('ContactForm', []);
+//        $model->attributes = $simpleData;
+//        debug($model);die();
+//        $model->scenario = ContactForm::NAME_NO_VALIDATION; //сценарий для формы, переопределение полей
+//        $model->scenario = ContactForm::ONLY_NAME;
+
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
-
             return $this->refresh();
         }
         return $this->render('contact', [

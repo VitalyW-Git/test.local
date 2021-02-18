@@ -3,12 +3,13 @@
 namespace app\controllers;
 
 
+use app\components\kettle\Kettle;
+use app\components\kettle\Cup;
 use app\models\Book;
 use app\models\BookGenre;
 use app\models\Gangster;
 use app\models\Gun;
-use app\models\Genre;
-use yii\helpers\ArrayHelper;
+
 use yii\web\Controller;
 
 
@@ -75,6 +76,18 @@ class TesterController extends Controller
 //
 //        die();
     }
+
+
+    public function actionKettle()
+    {
+        $tea = new Kettle();
+        $cup = new Cup();
+        $cup->setInCup($tea);
+        $cup->pourTeaCup();
+        die();
+    }
+
+
     public function actionGan()
     {
         /*$gangster = Gangster::find()

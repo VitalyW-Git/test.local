@@ -3,6 +3,7 @@
 
 namespace app\controllers;
 
+use app\components\widget\CryptoConverterWidget;
 use Yii;
 use app\components\CryptoCompareApi;
 use app\components\widget\UpdateGangsterDataWidget;
@@ -27,18 +28,28 @@ class CryptoController extends Controller
 
     public function actionCheckBox()
     {
-        $cryptoForm = new CryptoForm();
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        $s = \Yii::$app->request->get();
-        debug($s);
-        if ($cryptoForm->load()) {
+        $cryptoForm = new CryptoForm();
+        $success = true;
+        $error = null;
+        if ( Yii::$app->request->isAjax && $cryptoForm->load(\Yii::$app->request->get())) {
             $data = (new CryptoCompareApi($cryptoForm))->getData();
+        }
+        if(empty($data)){
+            $firstErrorAsArray = $cryptoForm->firstErrors;
+            $firstKey = array_key_first($firstErrorAsArray);
+            $error = $firstErrorAsArray[$firstKey];
+            $success = false;
         }
 
         return [
-            'error' => $data['error'] ?? $data,
-            'success' => $data,
-            'html' => UpdateGangsterDataWidget::widget(['gangster' => $data]),
+            'error' => $data['error'] ?? $error,
+            'success' => $success,
+            'html' => CryptoConverterWidget::widget([
+                'data' => $data,
+                'cryptoForm' => $cryptoForm,
+                ]),
         ];
     }
 

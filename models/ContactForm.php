@@ -10,12 +10,31 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
+
+
+
     public $name;
     public $email;
     public $subject;
     public $body;
     public $verifyCode;
 
+    const NAME_NO_VALIDATION = 'name_no_validation';
+
+    const ONLY_NAME = 'only_name';
+
+    const CAPTCHA_GOOGLE = 'captcha_google';
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+
+        $scenarios[ self::NAME_NO_VALIDATION ] = ['email', 'subject', 'body', 'verifyCode'];
+        $scenarios[ self::ONLY_NAME ] = ['name'];
+        $scenarios[ self::CAPTCHA_GOOGLE ] = ['name'];
+
+        return $scenarios;
+    }
 
     /**
      * @return array the validation rules.
@@ -26,7 +45,7 @@ class ContactForm extends Model
             // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
-            ['email', 'email'],
+            ['email', 'email',],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
