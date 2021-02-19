@@ -10,6 +10,8 @@ use app\models\BookGenre;
 use app\models\Gangster;
 use app\models\Gun;
 
+use app\models\Player;
+use app\models\Team;
 use yii\web\Controller;
 
 
@@ -191,12 +193,21 @@ class TesterController extends Controller
             ->all();
 
         //  ?
-        $model11 = Book::find()
+        $model12 = Player::find()
+            ->select('name, id, team_id')
             ->asArray()
-            ->with('genres')
+            ->where(['name' => 'петя'])
+            ->one();
+
+        $model13 = Team::find()
+            ->select('team.name, team.id')
+            ->indexBy('id')
+            ->asArray()
+            ->leftJoin('player as p', 'team.id = p.team_id')
             ->all();
 
-        debug($model10);
+        debug($model12);
+        debug($model13);
         die();
     }
 }

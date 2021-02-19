@@ -50,30 +50,38 @@ class TeamController extends Controller
         die('success');
     }
 
-    public function actionChangePlayerTeam($playerName)
+    public function actionChangePlayerTeam($playerName, $teamName)
     {
-//        $player = Player::find()
-//            ->where(['name' => $playerName])
-//            ->one();
-//
-//
-//        $team = Team::find()
-//            ->where(['name' => $teamName])
-//            ->one();
-
-        $model10 = Player::find()
-            ->select('player.*')
-            ->leftJoin('player.id = team.team_id')
+        $player = Player::find()
+            ->select('name, id, team_id')
             ->asArray()
-            ->where(['in', 'id', $playerName])
-            ->createCommand()->rawSql;
-//            ->all();
-        debug($model10);die();
-        if ($teamName !== $team) {
-            $team->name = $teamName;
-        } else {
+            ->where(['name' => $playerName])
+            ->one();
 
+
+        $team = Team::find()
+            ->where(['name' => $teamName])
+            ->asArray()
+            ->one();
+
+//        debug($team['name']);
+//        debug($player);die();
+
+        if (!empty($player) && !empty($team)) {
+            /** @var Player $player */
+            /** @var Team $team */
+            $player = Player::find()->one();
+//            debug($player);die();
+            $player->name = $playerName;
+            $player->team_id = $team['id'];
+            $player->save();
         }
+
+//        if ($teamName) {
+//            $team->name = $teamName;
+//        } else {
+//
+//        }
     }
 
 }
