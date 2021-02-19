@@ -26,6 +26,9 @@ class CryptoController extends Controller
     }
 
 
+
+
+
     public function actionCheckBox()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
