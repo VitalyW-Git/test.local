@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Exception;
 use yii\db\ActiveRecord;
 
 /**
@@ -51,6 +52,42 @@ class Team extends ActiveRecord
     public function getPlayers()
     {
         return $this->hasMany(Player::class, ['team_id' => 'id']);
+    }
+
+
+    /**
+     * Сохранит команду. Иначе исключение
+     *
+     * @param string $name
+     * @param null $id
+     * @return bool
+     * @throws Exception
+     */
+    public static function changeTeam(string $name, $id = null): void
+    {
+        if ($id) {
+            /** @var Team $team */
+            $team = self::find()
+                ->select('name')
+                ->where(['id' => $id])
+                ->one();
+            $team->name = 'Команда';
+            $team->id = '6';
+        } else {
+            /** @var Team $team */
+            $team = self::find()
+                ->where(['name' => $name])
+                ->one();
+            if ($team) {
+                $team->name = 'Название';
+            } else {
+                $team = self::find()->one();
+                $team->name = $name;
+            }
+        }
+        if ($team && !$team->save()) {
+            throw new Exception('Omg user do not saved!');
+        }
     }
 
 }

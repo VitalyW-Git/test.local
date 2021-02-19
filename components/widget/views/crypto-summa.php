@@ -22,3 +22,5 @@ CheckBoxAsset::register($this)
         </li>
     <? } ?>
 </ul>
+<br>
+<p id="output"></p>

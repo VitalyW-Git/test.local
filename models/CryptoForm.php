@@ -42,7 +42,7 @@ class CryptoForm extends Model
         return [
             'BTC' => 'BTC',
             'ETH' => 'ETH',
-            'LTC'=>'LTC'
+            'LTC' => 'LTC'
         ];
     }
     public static function getCarensisList():array
@@ -50,7 +50,7 @@ class CryptoForm extends Model
         return [
             'RUB' => 'RUB',
             'USD' => 'USD',
-            'EUR'=>'EUR'
+            'EUR' => 'EUR'
         ];
     }
 

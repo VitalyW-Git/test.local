@@ -9,6 +9,7 @@ use app\components\CryptoCompareApi;
 use app\components\widget\UpdateGangsterDataWidget;
 use app\models\CryptoForm;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\Response;
 
 class CryptoController extends Controller
@@ -32,13 +33,13 @@ class CryptoController extends Controller
     public function actionCheckBox()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-
         $cryptoForm = new CryptoForm();
         $success = true;
         $error = null;
-        if ( Yii::$app->request->isAjax && $cryptoForm->load(\Yii::$app->request->get())) {
+        if ($cryptoForm->load(\Yii::$app->request->get())) {
             $data = (new CryptoCompareApi($cryptoForm))->getData();
         }
+
         if(empty($data)){
             $firstErrorAsArray = $cryptoForm->firstErrors;
             $firstKey = array_key_first($firstErrorAsArray);
@@ -47,7 +48,7 @@ class CryptoController extends Controller
         }
 
         return [
-            'error' => $data['error'] ?? $error,
+            'error' => $error,
             'success' => $success,
             'html' => CryptoConverterWidget::widget([
                 'data' => $data,
@@ -55,5 +56,43 @@ class CryptoController extends Controller
                 ]),
         ];
     }
+
+
+   /* public function actionCheckBox()
+    {
+        // Создаём экземпляр модели.
+        $cryptoForm = new CryptoForm();
+        // Устанавливаем формат ответа JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        // Если пришёл AJAX запрос
+        if (Yii::$app->request->isAjax) {
+            // Получаем данные модели из запроса
+            if ($cryptoForm->load(Yii::$app->request->get())) {
+                $data = (new CryptoCompareApi($cryptoForm))->getData();
+                //Если всё успешно, отправляем ответ с данными
+                return [
+                    "error" => null,
+                    "html" => CryptoConverterWidget::widget([
+                        'data' => $data,
+                        'cryptoForm' => $cryptoForm,
+                    ]),
+                ];
+            } else {
+                // Если нет, отправляем ответ с сообщением об ошибке
+                return [
+                    "html" => null,
+                    "error" => "error1"
+                ];
+            }
+        } else {
+            // Если это не AJAX запрос, отправляем ответ с сообщением об ошибке
+            return [
+                "html" => null,
+                "error" => "error2"
+            ];
+        }
+    }*/
+
 
 }

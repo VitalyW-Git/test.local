@@ -4,9 +4,12 @@
 namespace app\controllers;
 
 
+use app\components\CryptoCompareApi;
+use app\models\Book;
 use app\models\Player;
 use app\models\Team;
 use app\models\User;
+use yii\base\Exception;
 use yii\data\Pagination;
 use yii\web\Controller;
 
@@ -35,4 +38,42 @@ class TeamController extends Controller
         ]);
 
     }
+
+    /**
+     * @param $name
+     * @param null $id
+     * @throws Exception
+     */
+    public function actionChangeTeam($name, $id = null)
+    {
+        Team::changeTeam($name, $id = null);
+        die('success');
+    }
+
+    public function actionChangePlayerTeam($playerName)
+    {
+//        $player = Player::find()
+//            ->where(['name' => $playerName])
+//            ->one();
+//
+//
+//        $team = Team::find()
+//            ->where(['name' => $teamName])
+//            ->one();
+
+        $model10 = Player::find()
+            ->select('player.*')
+            ->leftJoin('player.id = team.team_id')
+            ->asArray()
+            ->where(['in', 'id', $playerName])
+            ->createCommand()->rawSql;
+//            ->all();
+        debug($model10);die();
+        if ($teamName !== $team) {
+            $team->name = $teamName;
+        } else {
+
+        }
+    }
+
 }

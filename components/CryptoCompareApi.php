@@ -8,7 +8,8 @@ use yii\httpclient\Client;
 class CryptoCompareApi
 {
     /** @var $url string */
-    private $url; // сервиса
+    private $url; // сервис
+
     /** @var $fsym string */
     private $fsym;
     private $tsyms;

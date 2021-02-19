@@ -31,7 +31,7 @@ class Player extends ActiveRecord
     public function rules()
     {
         return [
-            [['team_id', 'name', 'age', 'rating'], 'required'],
+            [['team_id', 'name', 'age', 'rating'], 'safe'],
             [['team_id', 'age', 'rating'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
