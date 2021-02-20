@@ -30,7 +30,11 @@ class TeamController extends Controller
 
         $sqlQuery = Player::find();
         $pages = new Pagination(['totalCount' => $sqlQuery->count(), 'pageSize' => 4]);
-        $players = $sqlQuery->offset($pages->offset)->limit($pages->limit)->all();
+
+        $players = $sqlQuery
+            ->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
 
         return $this->render('index', [
             'players'=> $players,
