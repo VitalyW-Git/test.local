@@ -3,13 +3,10 @@
 namespace app\controllers;
 
 use app\components\widget\UserOrderWidget;
-use app\models\Passport;
 use app\models\User;
-use app\models\UserForm;
 use app\models\UserOrder;
 use app\models\UserSearch;
 use yii\data\Pagination;
-use yii\debug\models\timeline\DataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use Yii;
@@ -59,14 +56,19 @@ class UserController extends Controller
     function actionCreate()
     {
         $model = new User();
-        $request = Yii::$app->request;
-        if ($model->load($request->post()) && $model->validate()) {
-//        if ($model->load($_POST['User']) && $model->validate()) {
-            $model->save();
-            \Yii::$app->getSession()->setFlash('success', 'Запись добавлена');
-            return $this->refresh();
+        if ($model->load(Yii::$app->request->post())) {
+//        if ($model->load($_POST['User'])) {
+            if ($model->validate()) {
+                $model->save();
+                \Yii::$app->getSession()->setFlash('success', 'Данные добавлены!');
+                return $this->refresh(); // при успешной отправки сброс полей
+            } else {
+                \Yii::$app->getSession()->setFlash('error', 'Ошибка!');
+            }
         }
-        return $this->render('create', ['model' => $model]);
+        return $this->render('create', [
+            'model' => $model
+        ]);
     }
 
     // формирование таблицы с колонками поиска

@@ -28,7 +28,7 @@ use yii\data\Pagination;
                                 <li>имя: <?= $player->name ?></li>
                                 <li>возраст: <?= $player->age ?></li>
                                 <li>рейтинг: <?= $player->rating ?> </li>
-                                <a class="btn btn-success mt-10" href="<?= Url::to(['team/index', 'id' => $player->id])?>">ссылка</a>
+                                <a class="btn btn-success mt-10" href="<?= Url::to(['team/index', 'id' => $player->id])?>">Изменение рейтинга</a>
                             </ul>
                         </div>
                     </div>

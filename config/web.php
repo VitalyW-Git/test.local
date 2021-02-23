@@ -52,7 +52,6 @@ $config = [
             ],
         ],
         'db' => $db,
-
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -65,7 +64,9 @@ $config = [
                 'user/delete/<id:\d+>' => 'user/delete'
             ],
         ],
-
+//        'cryptoApi' => [
+//            'class' => app\components\CryptoCompareApi::class,
+//        ],
     ],
     'params' => $params,
 ];

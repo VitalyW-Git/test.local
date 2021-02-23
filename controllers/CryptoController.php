@@ -3,13 +3,11 @@
 
 namespace app\controllers;
 
-use app\components\widget\CryptoConverterWidget;
 use Yii;
+use app\components\widget\CryptoConverterWidget;
 use app\components\CryptoCompareApi;
-use app\components\widget\UpdateGangsterDataWidget;
 use app\models\CryptoForm;
 use yii\web\Controller;
-use yii\web\HttpException;
 use yii\web\Response;
 
 class CryptoController extends Controller
@@ -25,9 +23,6 @@ class CryptoController extends Controller
             'data' => $data ?? [],
             ]);
     }
-
-
-
 
 
     public function actionCheckBox()

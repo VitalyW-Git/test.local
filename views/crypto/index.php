@@ -14,6 +14,7 @@ use app\models\CryptoForm;
             <div class="card-header">
                 <h1>Crypto / Form</h1>
             </div>
+<!--            добавление формы -->
             <?= CryptoFormWidget::widget([
                 'cryptoForm' => $cryptoForm
             ]) ?>
@@ -21,13 +22,13 @@ use app\models\CryptoForm;
     </div>
 </div>
 <br>
-<div class="container">
-    <div class="col-sm-3" id="js-crypto-data">
+<div class="container" id="js-crypto-data">
+<!--    результат выбора полей для конвертации -->
         <?= CryptoConverterWidget::widget([
             'data' => $data,
             'cryptoForm' => $cryptoForm,
         ]) ?>
     </div>
-</div>
+
 
 

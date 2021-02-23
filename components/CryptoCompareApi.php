@@ -4,8 +4,10 @@ namespace app\components;
 
 use app\models\CryptoForm;
 use yii\httpclient\Client;
+use yii\base\Component;
+use Yii;
 
-class CryptoCompareApi
+class CryptoCompareApi extends Component
 {
     /** @var $url string */
     private $url; // сервис

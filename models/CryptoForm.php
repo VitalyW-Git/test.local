@@ -45,7 +45,7 @@ class CryptoForm extends Model
             'LTC' => 'LTC'
         ];
     }
-    public static function getCarensisList():array
+    public static function getCarensisList():array // список конвертируемой валюты
     {
         return [
             'RUB' => 'RUB',
