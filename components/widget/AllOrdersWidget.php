@@ -7,13 +7,11 @@ use yii\base\Widget;
 
 class AllOrdersWidget extends Widget
 {
+    /** @var CatalogOrder[]  $catalogOrders */
+    public $catalogOrders;
+
     public function run()
     {
-        $catalogOrders = CatalogOrder::find()
-            ->all();
-
-        return $this->render('all-orders', [
-            'catalogOrders' => $catalogOrders
-        ]);
+        return $this->render('all-orders', ['catalogOrders' => $this->catalogOrders]);
     }
 }

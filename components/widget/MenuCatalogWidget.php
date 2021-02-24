@@ -7,12 +7,16 @@ use yii\base\Widget;
 
 class MenuCatalogWidget extends Widget
 {
-    /** @var Catalog $catalogs */
-    public $catalogs;
 
-        public function run()
+    public function run()
     {
-        return $this->render('menu-catalog', ['catalogs' => $this->catalogs]);
+        $catalogs = Catalog::find()
+            ->select('name, id')
+            ->all();
+
+        return $this->render('menu-catalog', [
+            'catalogs' => $catalogs,
+        ]);
     }
 
 }

@@ -3,8 +3,8 @@
 use app\models\CatalogOrder;
 use yii\web\View;
 
-/** @var View $this*/
-/** @var CatalogOrder[] $catalogOrders*/
+/** @var View $this */
+/** @var CatalogOrder[] $catalogOrders */
 ?>
 <?php
 /** @var CatalogOrder $catalogOrder */

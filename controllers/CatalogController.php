@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\Catalog;
 use app\models\CatalogOrder;
-use app\models\CatalogOrderItems;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -12,12 +11,27 @@ class CatalogController extends Controller
 {
     public function actionIndex()
     {
-        $catalogs = Catalog::find()
-            ->select('name')
+        $catalogOrders = CatalogOrder::find()
             ->all();
-
         return $this->render('index', [
-            'catalogs' => $catalogs,
+            'catalogOrders' => $catalogOrders
+        ]);
+    }
+
+    public function actionOrder()
+    {
+//        $id = \Yii::$app->request->get();
+        $catalogsId = Catalog::find()
+            ->from('catalog as c')
+            ->innerJoin('catalog_order_items as coi', 'c.id = coi.catalog_id')
+//            ->innerJoin('catalog_order_items as coi', 'c.id = coi.catalog_id')
+            ->where(['coi.catalog_order_id' => 1])
+            ->asArray()
+            ->all();
+        debug($catalogsId);
+        die();
+        return $this->render('order', [
+            'catalogsId' => $catalogsId
         ]);
     }
 
@@ -29,7 +43,6 @@ class CatalogController extends Controller
 //            'catalogOrders' => $catalogOrders
 //        ]);
 //    }
-
     protected function findModel($userId)
     {
         $model = CatalogOrder::find()

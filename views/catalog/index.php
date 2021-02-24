@@ -12,7 +12,7 @@ use app\models\CatalogOrder;
         <?= MenuCatalogWidget::widget() ?>
     </div>
     <div class="col-md-8">
-        <?= AllOrdersWidget::widget()?>
+        <?= AllOrdersWidget::widget(['catalogOrders' => $catalogOrders])?>
     </div>
 </div>
 

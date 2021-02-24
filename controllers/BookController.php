@@ -19,21 +19,14 @@ class BookController extends Controller
      */
     public function actionIndex()
     {
-//        /** @var Genre $genres */
-//        $genres = Genre::find()
-//            ->with('books')
-//            ->all();
-
         /** @var Book $books */
         $books = Book::find()
             ->with('genres')
             ->all();
 
         return $this->render('index', [
-//            'genres' => $genres,
             'books' => $books,
-            ]
-        );
+            ]);
     }
 
     /**
