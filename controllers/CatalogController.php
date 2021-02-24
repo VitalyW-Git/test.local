@@ -12,21 +12,15 @@ class CatalogController extends Controller
 {
     public function actionIndex()
     {
-        $catalogOrders = CatalogOrder::findOne('id');
+        $catalogs = Catalog::find()
+            ->select('name')
+            ->all();
+
         return $this->render('index', [
-            'catalogOrders' => $catalogOrders
+            'catalogs' => $catalogs,
         ]);
     }
 
-    public function actionOrderAll($catalogId)
-    {
-        $orders = Catalog::find()
-            ->joinWith('Catalog as c')
-            ->where(['c.'])
-            ->all();
-        debug($orders);
-        die();
-    }
 
 //    public function actionIndex($userId)
 //    {

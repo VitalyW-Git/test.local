@@ -14,7 +14,7 @@ foreach ($catalogOrders as $catalogOrder) : ?>
             <div class="panel-heading"><h4><?= $catalogOrder->user_name ?></h4></div>
             <div class="panel-body">
                 <?php foreach ($catalogOrder->catalogOrderItems as $catalog) : ?>
-                    <?= $catalog->catalog->name?>
+                    <?= $catalog->catalog->name?> <br>
                 <?php endforeach; ?>
             </div>
         </div>
