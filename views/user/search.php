@@ -110,7 +110,7 @@ TestAsset::register($this)
             ],
         ],
     ],
-]); */?>
+]); ?>
 
 
 <!--    <div class="container">-->

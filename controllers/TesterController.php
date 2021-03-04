@@ -205,8 +205,8 @@ class TesterController extends Controller
             ->asArray()
             ->leftJoin('player as p', 'team.id = p.team_id')
             ->all();
+        $model13 = password_hash('root', PASSWORD_DEFAULT);
 
-        debug($model12);
         debug($model13);
         die();
     }

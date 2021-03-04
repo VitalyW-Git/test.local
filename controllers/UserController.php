@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use Yii;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 class UserController extends Controller
 {
@@ -56,15 +57,30 @@ class UserController extends Controller
     function actionCreate()
     {
         $model = new User();
+
         if ($model->load(Yii::$app->request->post())) {
-//        if ($model->load($_POST['User'])) {
-            if ($model->validate()) {
-                $model->save();
-                \Yii::$app->getSession()->setFlash('success', 'Данные добавлены!');
-                return $this->refresh(); // при успешной отправки сброс полей
-            } else {
-                \Yii::$app->getSession()->setFlash('error', 'Ошибка!');
+            $model->detailPicture = UploadedFile::getInstance($model, 'detailPicture');
+            if ($model->save(false)) {
+                Yii::$app->session->setFlash('success', 'Производитель '. '"'. $model->name . '"' .' добавлен!');
+                return $this->refresh();
             }
+            /*$model->load(Yii::$app->request->post()); // загружаем данные в ($model->load) которые у нас пришли post запросом
+            $model->image = UploadedFile::getInstance($model, 'image'); // прописываем модель и имя атрибута
+            $model->image->saveAs("img/{$model->image->baseName}.{$model->image->extension}");
+            $model->save(false);
+            return $this->refresh();*/
+
+            /* только для текстовых полей
+                    if ($model->load(Yii::$app->request->post())) {
+                        if ($model->validate()) {
+                            $model->save();
+                            \Yii::$app->getSession()->setFlash('success', 'Данные добавлены!');
+                            return $this->refresh(); // при успешной отправки сброс полей
+                        } else {
+                            \Yii::$app->getSession()->setFlash('error', 'Ошибка!');
+                        }
+                    }
+                */
         }
         return $this->render('create', [
             'model' => $model
@@ -124,11 +140,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function actionA()
-    {
-        $users = User::find()->successful()->allder()->all();
-        $a = 1;
-    }
+//    public function actionA()
+//    {
+//        $users = User::find()->successful()->allder()->all();
+//        $a = 1;
+//    }
 
     public function actionOrder($id)
     {
