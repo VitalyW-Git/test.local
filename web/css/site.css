@@ -172,3 +172,7 @@ a.desc:after {
     margin-right: 10px;
     margin-top: 6px;
 }
+.block-add-image {
+    display: flex;
+    justify-content: space-evenly;
+}

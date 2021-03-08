@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "catalog".
@@ -16,7 +16,7 @@ use Yii;
  *
  * @property CatalogOrderItems[] $catalogOrderItems
  */
-class Catalog extends \yii\db\ActiveRecord
+class Catalog extends ActiveRecord
 {
     /**
      * {@inheritdoc}

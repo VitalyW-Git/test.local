@@ -11,6 +11,8 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@contents' => '@app/web/img',
+        '@articleDetail' => '@app/web/img/detail',
+        '@articlePreview' => '@app/web/img/preview',
     ],
     // модель
     'modules' => [
