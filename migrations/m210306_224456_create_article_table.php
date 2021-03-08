@@ -19,8 +19,8 @@ class m210306_224456_create_article_table extends Migration
             'detail_picture' => $this->string(255)->comment('Изображение'),
             'preview_picture' => $this->string(255)->comment('Изображение предпросмотр'),
             'date_t' => $this->integer()->notNull(),
-            'created_at' => 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
-            'updated_at' => 'timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP'
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
         ]);
     }
 

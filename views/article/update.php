@@ -24,7 +24,9 @@ $this->title = "Редактирование статьи";
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <?= $model->date_formatted ?>
+                <?= $model->date_formatted ?><br>
+                <?= $model->created_at ?><br>
+                <?= $model->updated_at ?><br>
             </div>
         </div>
     </div>

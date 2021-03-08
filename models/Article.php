@@ -7,6 +7,7 @@ use app\models\common\behaviors\DateToTimeBehavior;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "detail".
@@ -49,6 +50,16 @@ class Article extends ActiveRecord
                 ],
                 'timeAttribute' => 'date_t'
             ],
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => function() {
+                    return date('U');
+                },
+            ],
         ];
     }
 
@@ -58,8 +69,8 @@ class Article extends ActiveRecord
     public function rules()
     {
         return [
+            [['created_at', 'updated_at'], 'integer'],
             [['name', 'content'], 'safe'],
-//            ['date_t', 'required', 'message' => 'Введите дату', 'on' => ['default']],
             [['date_t'], 'integer'],
             ['date_formatted', 'date', 'format' => 'php:d.m.Y'],
             [['name', 'content', 'detail_picture', 'preview_picture'], 'string', 'max' => 255],
@@ -86,7 +97,7 @@ class Article extends ActiveRecord
 
 //    public function beforeSave($insert)
 //    {
-//        $this->date_t = date('Y.m.d', strtotime($this->date_t));
+//        $this->created_at = date('Y.m.d', strtotime($this->date_t));
 //        return parent::beforeSave($insert);
 //    }
     /**
