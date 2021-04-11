@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>ПЕРВЫЙ КОМПОНЕНТ {{ text }}</h1>
+    <span class="title-com-one">ПЕРВЫЙ КОМПОНЕНТ!!! {{ text }}</span>
 <!--    <TesComp msg="| Запись добавлена через PROPS!! |"/>-->
     <tes-comp :msg="info" :items="items" @pause="paused"></tes-comp>
   </div>
@@ -34,3 +34,11 @@
   }
 </script>
 
+<style scoped>
+
+.title-com-one {
+  font-weight: bold;
+  color: #eec23e;
+}
+
+</style>

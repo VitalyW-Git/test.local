@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+use app\components\widget\vue\VueWidget;
 use yii\helpers\Html;
 
 $this->title = 'About';
@@ -15,4 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <code><?= __FILE__ ?></code>
+
+
 </div>
