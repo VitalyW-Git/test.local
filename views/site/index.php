@@ -1,8 +1,11 @@
 <?php
 
+use app\components\widget\vue\VueAssets;
 use app\components\widget\vue\VueWidget;
 
 /* @var $this yii\web\View */
+
+VueAssets::register($this);
 
 $this->title = 'My Yii Application';
 ?>
@@ -18,6 +21,7 @@ $this->title = 'My Yii Application';
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
+    <div id="app"></div>
     <?= VueWidget::widget([
         'component' => 'new-component2',
         'props' => ['text' => 'Пробный текст для второго компонента'],
