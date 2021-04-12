@@ -8,12 +8,9 @@ class VueAssets extends AssetBundle
 {
     public $sourcePath  = '@app/components/widget/vue/assets';
 
-    public $css = [
-        'css/app.css',
-    ];
+
     public $js = [
         'js/app.js',
-        'js/chunk-vendors.js',
     ];
 
 //    public $depends = [
