@@ -1,7 +1,7 @@
 <template>
   <div>
-    <span> {{ name }} просто текст просто текст просто текст </span>
-    <span> {{ name }} просто текст просто текст просто текст </span>
+    <span> {{ name }} просто текст просто </span><br>
+    <span> {{ name }} просто кухня</span>
   </div>
 </template>
 
