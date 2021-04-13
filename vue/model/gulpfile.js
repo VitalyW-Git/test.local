@@ -1,5 +1,5 @@
 var webpack = require('webpack-stream'),
-    gulp = require('gulp');
+    gulp = require('gulp'),
     gulprimraf = require('gulp-rimraf');
 
 /** Исходники */
@@ -31,7 +31,7 @@ gulp.task('clean-runtime-cache',function () {
 gulp.task('watch', function (done) {
     gulp.watch(assetsDir + 'assets/**/*', gulp.series('webpack'));
 
-    gulp.watch(assetsDir + '**/*.php', gulp.series('clean-runtime-cache'));
+    // gulp.watch(assetsDir + '**/*.js', ['vue'], gulp.series('clean-runtime-cache'));
     gulp.watch(assetsDir + '**/*.js', gulp.series('clean-runtime-cache'));
     gulp.watch(assetsDir + '**/*.vue', gulp.series('clean-runtime-cache'));
     done();

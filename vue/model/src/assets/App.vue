@@ -1,13 +1,31 @@
 <template>
   <div>
-    <span> {{ name }} просто текст просто </span><br>
-    <span> {{ name }} просто кухня</span>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <span class="title"> {{ name }} текст просто </span><br>
+    <lorem></lorem>
   </div>
 </template>
 
 <script>
-  export default {
+  import lorem from './components/Lorem.vue'
+  // import { defineAsyncComponent } from 'vue'
+  //
+  // let comp = defineAsyncComponent(() =>
+  //     import(/* webpackChunkName: 'lorem' */'./components/Lorem.vue')
+  // )
 
+  export default {
+    components: {
+      lorem
+      // lorem: defineAsyncComponent(() => import(/* webpackChunkName: 'lorem' */'./components/Lorem.vue'))
+      // lorem: comp
+    },
     data() {
       return {
         name: 'New',
