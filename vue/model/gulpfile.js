@@ -9,7 +9,7 @@ var assetsDir = 'src/';
 var productionDir = '../../components/widget/vue/';
 
 /** Путь до папки с кешам */
-var cacheRuntimeDir = '../../web/assets/';
+var cacheRuntimeDir = '../../web/';
 
 /**
  * Берёт исходники и запускает конфигурационный
@@ -23,7 +23,7 @@ gulp.task('webpack', function(){
 
 /** При запуске данного task очищается кеш */
 gulp.task('clean-runtime-cache',function () {
-    return gulp.src(cacheRuntimeDir + '*', {read: false})
+    return gulp.src(cacheRuntimeDir + 'assets/**/*', {read: false})
         .pipe(gulprimraf({force: true}));
 });
 

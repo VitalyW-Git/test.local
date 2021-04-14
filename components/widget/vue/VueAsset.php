@@ -10,11 +10,5 @@ class VueAsset extends AssetBundle
 
     public $js = [
         'assets/app.js',
-        'assets/lorem.app.js',
     ];
-
-//    public $depends = [
-//        'yii\web\YiiAsset',
-//        'yii\bootstrap\BootstrapAsset',
-//    ];
 }

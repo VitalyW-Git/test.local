@@ -5,7 +5,7 @@ module.exports = {
     mode: 'development',
     entry: './src/assets/app.js',
     output: {
-        path: path.resolve("../../components/vue/assets"),
+        path: path.resolve("../../components/widget/vue/assets"),
         // publicPath: "src/assets/",
         filename: "app.js"
     },
@@ -14,7 +14,18 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
-            }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                loader: 'file-loader',
+            },
         ]
     },
     plugins: [
