@@ -1,9 +1,9 @@
 <?php
-
 namespace app\controllers;
 
-use app\components\tank\Factory;
-use app\components\tank\Tank;
+use app\components\singleton\App;
+use app\components\stack\Stack;
+use yii\helpers\BaseVarDumper;
 use yii\web\Controller;
 
 
@@ -13,26 +13,28 @@ class TestController extends Controller
     public function actionIndex()
     {
 
-        /** @var  $gun */
-//        $rifle = new Rifle();
-        /** @var  $hunter */
-//        $hunter = new Hunter();
-//        $hunter->setRifle( $rifle );
-//        $hunter->setRifle( $rifle )->shoot();die;
+        $stack = new Stack();
 
-        /** @var  $chalk */
-//        $chalk = new Chalk();
+        $stack->push('a');
+        $stack->push('b');
+//        $stack->push('c');
+        $stack->pop();
+//        $stack->push('d');
 
-        /** @var  $boy */
-//        $boy = new Boy();
-//        $boy->takeСhalk( $chalk )->draw();die;
+        debug($stack);
+        BaseVarDumper::dump($stack,10,true);
 
-
-        $fabric = new Tank();
-        echo $fabric->getBody();
-        echo $fabric->getHead();
-        debug($fabric);
         die();
+    }
 
+    public function actionSingl()
+    {
+        $app  = App::getInstance();
+        $app->name = 'Str';
+        $app2 = App::getInstance();
+
+        BaseVarDumper::dump($app2,true);
+
+        die();
     }
 }
