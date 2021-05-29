@@ -20,7 +20,6 @@ class TestController extends Controller
 //        $stack->push('c');
         $stack->pop();
 //        $stack->push('d');
-
         debug($stack);
         BaseVarDumper::dump($stack,10,true);
 
@@ -32,9 +31,7 @@ class TestController extends Controller
         $app  = App::getInstance();
         $app->name = 'Str';
         $app2 = App::getInstance();
-
         BaseVarDumper::dump($app2,true);
-
         die();
     }
 }

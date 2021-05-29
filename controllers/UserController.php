@@ -5,10 +5,12 @@ namespace app\controllers;
 use app\models\User;
 use app\models\UserForm;
 use app\models\UserSearch;
+use yii\base\BaseObject;
 use yii\data\Pagination;
 use yii\debug\models\timeline\DataProvider;
 use yii\web\Controller;
 use Yii;
+use yii\web\Response;
 
 class UserController extends Controller
 {
@@ -66,4 +68,17 @@ class UserController extends Controller
             ]
         );
     }
+
+    function actionSearchNew(): string
+    {
+        $userSearch = new UserSearch();
+        $dataProvider = $userSearch->searchNew(Yii::$app->request->queryParams);
+        return $this->render('search-new', [
+                'dataProvider' => $dataProvider,
+                'userSearch' => $userSearch,
+            ]
+        );
+    }
+
+
 }

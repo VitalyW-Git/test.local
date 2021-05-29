@@ -113,3 +113,15 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.check-block {
+    display: flex;
+    align-items: flex-end;
+}
+.check-block input {
+    margin-right: 10px;
+}
+.check-search {
+    width: 20px;
+
+}

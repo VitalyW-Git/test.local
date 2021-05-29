@@ -2,22 +2,25 @@
 
 namespace app\models;
 
+use app\models\User;
+use yii\base\BaseObject;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\User;
+use yii\db\Query;
 
 /**
  * UserSearch represents the model behind the search form of `app\models\User`.
  */
 class UserSearch extends User
 {
+    public $issetPassport;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-//            [['id', 'age', 'salary'], 'integer'],
+            [['issetPassport'], 'safe'],
             [['id', 'age', 'salary', 'name', 'last_name', 'email', 'password', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -68,5 +71,44 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'password', $this->password]);
 
         return $dataProvider;
+    }
+
+    /**
+     * @param $params
+     * @return \yii\data\ActiveDataProvider
+     */
+    public function searchNew($params)
+    {
+        $this->load($params);
+        if ($this->issetPassport) {
+            $querys = User::find()
+                ->alias('u')
+                ->select('*')
+                ->innerJoin('passport p', 'u.id = p.user_id');
+        } else {
+            $querys = User::find();
+        }
+        $dataProvider = new ActiveDataProvider([
+            'query' => $querys,
+            'pagination' => [
+                'pageSize' => 5 // пагинация
+            ],
+        ]);
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+        $querys->andFilterWhere([
+            'id' => $this->id,
+            'age' => $this->age,
+            'salary' => $this->salary,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ]);
+        $querys->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'last_name', $this->last_name])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'password', $this->password]);
+        return $dataProvider;
+
     }
 }
