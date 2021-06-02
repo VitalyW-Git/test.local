@@ -39,6 +39,8 @@ class Article extends ActiveRecord
 
     public $date_formatted;
 
+    public $file;
+
     public function behaviors()
     {
         return [
@@ -91,7 +93,8 @@ class Article extends ActiveRecord
             [['date_t'], 'integer'],
             ['date_formatted', 'date', 'format' => 'php:d.m.Y'],
             [['name', 'content'], 'string', 'max' => 255],
-            [['detail_picture'], 'file', 'extensions' => 'jpg, jpeg, png, gif'],
+            [['detail_picture'], 'string', 'max' => 100],
+            [['file'], 'image'],
 //            ['detailPicture', 'uploadDetailPicture'],
 //            ['previewPicture', 'uploadPreviewPicture']
         ];
@@ -108,6 +111,7 @@ class Article extends ActiveRecord
             'content' => 'Content',
             'detail_picture' => 'Detail Picture',
             'preview_picture' => 'Preview Picture',
+            'file' => 'Картинка',
             'date_t' => 'Date',
         ];
     }
@@ -179,4 +183,33 @@ class Article extends ActiveRecord
     {
         @unlink($this->getPreviewFilePath());
     }
+
+    public function beforeSave($insert)
+    {
+        if($file = UploadedFile::getInstance($this, 'file')){
+            $dir = Yii::getAlias('@articleDetail').'/blog/';
+            if(file_exists($dir.$this->detail_picture)){
+                unlink($dir.$this->detail_picture);
+            }
+            if(file_exists($dir.'50x50/'.$this->detail_picture)){
+                unlink($dir.'50x50/'.$this->detail_picture);
+            }
+            if(file_exists($dir.'800x/'.$this->detail_picture)){
+                unlink($dir.'800x/'.$this->detail_picture);
+            }
+            $this->detail_picture = strtotime('now').'_'.Yii::$app->getSecurity()->generateRandomString(6)  . '.' . $file->extension;
+            $file->saveAs($dir.$this->detail_picture);
+            $imag = Yii::$app->image->load($dir.$this->detail_picture);
+            $imag->background('#fff',0);
+            $imag->resize('50','50', Yii\image\drivers\Image::INVERSE);
+            $imag->crop('50','50');
+            $imag->save($dir.'50x50/'.$this->detail_picture, 90);
+            $imag = Yii::$app->image->load($dir.$this->detail_picture);
+            $imag->background('#fff',0);
+            $imag->resize('800',null, Yii\image\drivers\Image::INVERSE);
+            $imag->save($dir.'800x/'.$this->detail_picture, 90);
+        }
+        return parent::beforeSave($insert);
+    }
+
 }

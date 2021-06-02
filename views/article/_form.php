@@ -47,7 +47,7 @@ use kartik\file\FileInput;
 //             ]); ?>
 <!--        </div>-->
         <div class="">
-            <?= $form->field($model, 'detail_picture')->fileInput() ?>
+            <?= $form->field($model, 'file')->fileInput() ?>
         </div>
 
     </div>

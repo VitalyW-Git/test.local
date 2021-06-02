@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Article;
+use yii\base\DynamicModel;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
@@ -39,22 +40,33 @@ class ArticleController extends Controller
 //    }
 
 
+//    public function actionCreate()
+//    {
+//        $model = new Article();
+//        if ($model->load(Yii::$app->request->post())) {
+//
+//            if ($model->save()) {
+//                $model->detail_picture = UploadedFile::getInstance($model, 'detail_picture');
+//                $f = DynamicModel();
+//                if ($model->validate()) {
+//                    $path = realpath(dirname(__FILE__)).'/../web/img/preview/'.'444.';
+//                    $model->detail_picture->saveAs($path . $model->detail_picture->extension);
+//                }
+//            }
+//        }
+//        return $this->render('create', ['model' => $model]);
+//    }
+
+
     public function actionCreate()
     {
         $model = new Article();
         if ($model->load(Yii::$app->request->post())) {
-
-            if ($model->save()) {
-                $model->detail_picture = UploadedFile::getInstance($model, 'detail_picture');
-                if ($model->validate()) {
-                    $path = realpath(dirname(__FILE__)).'/../web/img/preview/'.'444.';
-                    $model->detail_picture->saveAs($path . $model->detail_picture->extension);
-                }
-            }
+            $model->save();
+            return $this->render('create', ['model' => $model]);
         }
         return $this->render('create', ['model' => $model]);
     }
-
 
     /**
      * @param $id

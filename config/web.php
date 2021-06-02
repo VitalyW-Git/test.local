@@ -21,6 +21,10 @@ $config = [
         ],
     ],
     'components' => [
+        'image' => [
+            'class' => 'yii\image\ImageDriver',
+            'driver' => 'Imagick',  //GD or Imagick
+        ],
 //        'assetManager' => [
 //            'linkAssets' => true,
 //        ],
