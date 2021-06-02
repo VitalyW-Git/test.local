@@ -20,7 +20,7 @@ use kartik\file\FileInput;
 <div class="article-index">
 
     <?php $form = ActiveForm::begin([
-//        'options' => ['enctype' => 'multipart/form-data'],
+        'options' => ['enctype' => 'multipart/form-data'],
 //        'fieldConfig' => [
 //            'errorOptions' => ['class' => 'error mt-2 text-danger'],
 //        ],
@@ -33,26 +33,21 @@ use kartik\file\FileInput;
         ]) ?>
     <div class="row block-add-image">
 <!--        <div class="">-->
-<!--            --><?//= $form->field($model, 'detailPicture')->fileInput() ?>
-<!---->
+<!--            --><?//= $form->field($model, 'detailPicture')->widget(FileInput::class, [
+//                'options' => [
+////                  'accept' => 'image'
+//                    'multiple' => true
+//                ],
+//                'pluginOptions'=>[
+//                    'deleteUrl' => Url::toRoute(['realty/delete-image']),
+//                    'allowedFileExtensions'=>['jpg','gif','png'],
+//                    'showUpload' => false,
+//                    'overwriteInitial'=>false,
+//                    ],
+//             ]); ?>
 <!--        </div>-->
         <div class="">
-            <?= $form->field($model, 'detailPicture')->widget(FileInput::class, [
-                'options' => [
-//                  'accept' => 'image'
-                    'multiple' => true
-                ],
-                'pluginOptions'=>[
-                    'deleteUrl' => Url::toRoute(['realty/delete-image']),
-                    'allowedFileExtensions'=>['jpg','gif','png'],
-                    'showUpload' => false,
-                    'overwriteInitial'=>false,
-                    ],
-             ]); ?>
-
-        </div>
-        <div class="">
-            <?= $form->field($model, 'previewPicture')->fileInput() ?>
+            <?= $form->field($model, 'detail_picture')->fileInput() ?>
         </div>
 
     </div>

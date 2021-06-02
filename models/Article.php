@@ -66,17 +66,34 @@ class Article extends ActiveRecord
     /**
      * {@inheritdoc}
      */
+//    public function rules()
+//    {
+//        return [
+//            [['created_at', 'updated_at'], 'integer'],
+//            [['name', 'content'], 'safe'],
+//            [['date_t'], 'integer'],
+//            ['date_formatted', 'date', 'format' => 'php:d.m.Y'],
+//            [['name', 'content', 'detail_picture', 'preview_picture'], 'string', 'max' => 255],
+//            [['detailPicture', 'previewPicture'], 'file', 'extensions' => 'jpg, jpeg, png, gif'],
+//            ['detailPicture', 'uploadDetailPicture'],
+//            ['previewPicture', 'uploadPreviewPicture']
+//        ];
+//    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
             [['created_at', 'updated_at'], 'integer'],
-            [['name', 'content'], 'safe'],
+            [['name', 'content', 'preview_picture'], 'safe'],
             [['date_t'], 'integer'],
             ['date_formatted', 'date', 'format' => 'php:d.m.Y'],
-            [['name', 'content', 'detail_picture', 'preview_picture'], 'string', 'max' => 255],
-            [['detailPicture', 'previewPicture'], 'file', 'extensions' => 'jpg, jpeg, png, gif'],
-            ['detailPicture', 'uploadDetailPicture'],
-            ['previewPicture', 'uploadPreviewPicture']
+            [['name', 'content'], 'string', 'max' => 255],
+            [['detail_picture'], 'file', 'extensions' => 'jpg, jpeg, png, gif'],
+//            ['detailPicture', 'uploadDetailPicture'],
+//            ['previewPicture', 'uploadPreviewPicture']
         ];
     }
 
