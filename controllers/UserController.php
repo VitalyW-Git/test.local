@@ -69,6 +69,7 @@ class UserController extends Controller
         );
     }
 
+
     function actionSearchNew(): string
     {
         $userSearch = new UserSearch();

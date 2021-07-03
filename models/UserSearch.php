@@ -6,6 +6,7 @@ use app\models\User;
 use yii\base\BaseObject;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
 use yii\db\Query;
 
 /**
@@ -14,13 +15,20 @@ use yii\db\Query;
 class UserSearch extends User
 {
     public $issetPassport;
+
+    public $number;
+    public $code;
+
+    public $userSearchMin;
+    public $userSearchMax;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['issetPassport'], 'safe'],
+            [['issetPassport', 'code', 'number', 'userSearchMin', 'userSearchMax'], 'safe'],
             [['id', 'age', 'salary', 'name', 'last_name', 'email', 'password', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -75,11 +83,11 @@ class UserSearch extends User
 
     /**
      * @param $params
-     * @return \yii\data\ActiveDataProvider
+     * @return ActiveDataProvider
      */
-    public function searchNew($params)
+    public function searchNew($params): ActiveDataProvider
     {
-        $this->load($params);
+        /*$this->load($params);
         if ($this->issetPassport) {
             $querys = User::find()
                 ->alias('u')
@@ -96,18 +104,58 @@ class UserSearch extends User
         ]);
         if (!$this->validate()) {
             return $dataProvider;
+        }*/
+
+        $query = User::find()->joinWith('passport');
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5
+            ],
+        ]);
+
+        $sort = $dataProvider->sort;
+        $sort->attributes['code'] = [
+            'asc' => ['passport.code' => SORT_ASC],
+            'desc' => ['passport.code' => SORT_DESC],
+        ];
+        $sort->attributes['number'] = [
+            'asc' => ['passport.number' => SORT_ASC],
+            'desc' => ['passport.number' => SORT_DESC],
+        ];
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            return $dataProvider;
         }
-        $querys->andFilterWhere([
+
+        if ($this->issetPassport) {
+            $subQuery = (new Query())
+                ->select([new Expression('1')])
+                ->from('passport')
+                ->where('user.id = passport.user_id');
+
+            $query->andWhere(['exists', $subQuery]);
+        }
+
+        $query->andFilterWhere([
             'id' => $this->id,
             'age' => $this->age,
             'salary' => $this->salary,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-        $querys->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'password', $this->password]);
+        $query->andFilterWhere([
+            'between', 'age',  $this->userSearchMin, $this->userSearchMax
+        ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+              ->andFilterWhere(['like', 'last_name', $this->last_name])
+              ->andFilterWhere(['like', 'email', $this->email])
+              ->andFilterWhere(['like', 'password', $this->password])
+              ->andFilterWhere(['like', 'passport.code', $this->code])
+              ->andFilterWhere(['like', 'passport.number', $this->number]);
         return $dataProvider;
 
     }
