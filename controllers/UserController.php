@@ -73,6 +73,9 @@ class UserController extends Controller
     function actionSearchNew(): string
     {
         $userSearch = new UserSearch();
+
+        $p = Yii::$app->request->queryParams;
+        $a = 1;
         $dataProvider = $userSearch->searchNew(Yii::$app->request->queryParams);
         return $this->render('search-new', [
                 'dataProvider' => $dataProvider,

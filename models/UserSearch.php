@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use app\models\User;
-use yii\base\BaseObject;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
@@ -85,32 +83,13 @@ class UserSearch extends User
      * @param $params
      * @return ActiveDataProvider
      */
-    public function searchNew($params): ActiveDataProvider
+    public function searchNew($params)
     {
-        /*$this->load($params);
-        if ($this->issetPassport) {
-            $querys = User::find()
-                ->alias('u')
-                ->select('*')
-                ->innerJoin('passport p', 'u.id = p.user_id');
-        } else {
-            $querys = User::find();
-        }
-        $dataProvider = new ActiveDataProvider([
-            'query' => $querys,
-            'pagination' => [
-                'pageSize' => 5 // пагинация
-            ],
-        ]);
-        if (!$this->validate()) {
-            return $dataProvider;
-        }*/
-
         $query = User::find()->joinWith('passport');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 5
+                'pageSize' => 20
             ],
         ]);
 
@@ -130,13 +109,21 @@ class UserSearch extends User
             return $dataProvider;
         }
 
+
+
         if ($this->issetPassport) {
             $subQuery = (new Query())
                 ->select([new Expression('1')])
                 ->from('passport')
                 ->where('user.id = passport.user_id');
-
             $query->andWhere(['exists', $subQuery]);
+        } else {
+            /*$subQuery = (new Query())
+                ->select([new Expression('1')])
+                ->from('passport')
+                ->where('user.id = passport.user_id');*/
+            $userPassportIds = Passport::find()->select('user_id')->column();
+            $query->andWhere(['not in', 'user.id', $userPassportIds]);
         }
 
         $query->andFilterWhere([
@@ -156,7 +143,11 @@ class UserSearch extends User
               ->andFilterWhere(['like', 'password', $this->password])
               ->andFilterWhere(['like', 'passport.code', $this->code])
               ->andFilterWhere(['like', 'passport.number', $this->number]);
-        return $dataProvider;
 
+        /** Параметры поползня */
+        $query->andFilterWhere(['>=', 'age', $this->userSearchMin])
+            ->andFilterWhere(['<=', 'age', $this->userSearchMax]);
+
+        return $dataProvider;
     }
 }

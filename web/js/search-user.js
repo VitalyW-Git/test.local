@@ -1,27 +1,30 @@
 let minAge = 0;
 let maxAge = 100;
 
+function c(r) {
+    console.log(r);
+}
 $( document ).ready(function() {
+    replaceSliderParams();
     inputRange([minAge, maxAge]);
 });
 
-$('body').on('click', '#checkOne, #submit1', e => {
-    filterByPassport();
-});
+/** Подставить параметры из url в minAge maxAge */
+function replaceSliderParams() {
+    let inps = $('.js-slider input');
+    let data = inps.serializeArray();
+    minAge = data[0].value ? data[0].value : 0;
+    maxAge = data[1].value ? data[1].value : 100;
+}
 
 /** Главная функция (дергает второстепенные) */
-function filterByPassport() {
+/*function filterByPassport() {
     let inps = $('input.form-control');
-    // для чтения в масив
     let data = inps.serializeArray();
-
-    // console.log(inps);
-    console.log(data);
-
     data = addIssetPassport(data)
     let url = '/user/search-new';
     sendRequest(url, data)
-}
+}*/
 
 /** Добавляем в data объект c UserSearch[issetPassport] */
 function addIssetPassport(data)
