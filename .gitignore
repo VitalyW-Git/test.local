@@ -1,6 +1,9 @@
 # phpstorm project files
 .idea
 
+# подключение к базе
+config/db.php
+
 # netbeans project files
 nbproject
 

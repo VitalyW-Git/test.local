@@ -20,7 +20,7 @@ CheckBoxAsset::register($this)
                 echo $number
                 ?>
             </li>
-        <? } ?>
+        <?php } ?>
     </ul>
 </div>
 <br>
