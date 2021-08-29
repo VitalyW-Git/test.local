@@ -2,7 +2,7 @@
 .idea
 
 # подключение к базе
-config/db.php
+/config/db.php
 
 # netbeans project files
 nbproject

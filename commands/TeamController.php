@@ -58,12 +58,15 @@ class TeamController extends Controller
     {
 //        $token = '95c20093f7bf14dabd9e68d74093fa27ed686afebccd7d9ca8786a468e2c576fc6d2d30189bb879debb70';
         $token = '84d88919d4e3c75fce8a53144fa59a4ca85428d6ed6f0ee7770c709ea399ffa6f2946b9944305fa27f625';
-        $url = 'https://api.vk.com/method/market.add?owner_id=-20618894&main_photo_id=457306881&name=testing&description=testingProduct&price=100&category_id=1&access_token='.$token.'&v=5.131';
+        $idApp = '20618894';
+        $idСompProduct = '20';
+        $url = 'https://api.vk.com/method/market.add?owner_id=-'.$idApp.'&main_photo_id=457306881&name=testing&description=testingProduct&price=100&category_id=1&access_token='.$token.'&v=5.131';
+        $getProduct = 'https://api.vk.com/method/market.get?owner_id=-'.$idApp.'&album_id=20&count=2&access_token='.$token.'&v=5.125';
 
         $client = new Client();
         $response = $client->createRequest()
             ->setMethod('GET')
-            ->setUrl($url)
+            ->setUrl($getProduct)
             ->setOptions(['timeout' => 3])
             ->send();
 
@@ -72,5 +75,42 @@ class TeamController extends Controller
         if ($arrResponse['ok'] === false) {
             throw new Exception($arrResponse['description'] . ' ' . $arrResponse['error_code']);
         }
+    }
+
+    // file_get_contents
+    public function actionTakeToken()
+    {
+        $permissions = [
+            'notify',
+            'friends',
+            'photos',
+            'audio',
+            'video',
+            'docs',
+            'notes',
+            'pages',
+            'status',
+            'wall',
+            'groups',
+            'messages',
+            'email',
+            'notifications',
+            'stats',
+            'ads',
+            'market',
+            'offline',
+            ];
+
+        $requestParams = [
+            'client_id' => '7937053',
+            'display' => 'page',
+            'redirect_uri' => 'https://oauth.vk.com/blank.html',
+            'response_type' => 'token',
+            'scope' => implode(',', $permissions),
+            'v' => '5.55',
+        ];
+
+        $url = 'https://oauth.vk.com/authorize?'.http_build_query($requestParams);
+        echo $url;
     }
 }
