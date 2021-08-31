@@ -24,7 +24,8 @@
         "kartik-v/yii2-widget-fileinput": "*",
         "yurkinx/yii2-image": "^1.3",
         "asil/vkmarket": "^1.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
