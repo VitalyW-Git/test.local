@@ -252,7 +252,7 @@ class ConnectController extends Controller
             $params['v'] = $v;
         }
 
-        //Получаем сервер для загрузки изображения
+        //Получаем URL для загрузки изображения
         $response = $this->method("photos.getMarketUploadServer", $params);
 
         if (isset($response) == false) {
@@ -261,9 +261,8 @@ class ConnectController extends Controller
         }
         $server = $response->response->upload_url;
 
+        //Отправляем изображение на сервер
         $json = $this->dispatchImageOnServerVk($file, $server);
-
-
 
         //Сохраняем изображение на сервере
         $photo = $this->method("photos.saveMarketPhoto", [
@@ -274,7 +273,6 @@ class ConnectController extends Controller
                 "v" => $v,
             ]
         );
-        VarDumper::dump($photo->response[0]->id,11,true);
 
         if (isset($photo->response[0]->id)) {
             $buf['main_photo_id'] = $photo->response[0]->id;
@@ -294,17 +292,83 @@ class ConnectController extends Controller
             ]
         );
         sleep(3);
-        VarDumper::dump($photo->response[0]->id,11,true);
-        VarDumper::dump($prod,11,true);
+        VarDumper::dump($prod->response[0]->id,11,true);
     }
 
     public function actionAddNewAlbum()
     {
+        $owner_id = '-20618894';
+        $group_id = '20618894';
+        $v = 5.131;
+        $file = $_SERVER['DOCUMENT_ROOT'] . '/uploads/image.jpg';
+        $buf = [];
+        $params = [];
 
+        if ($group_id) {
+            $params['group_id'] = $group_id;
+        }
+        if ($v) {
+            $params['v'] = $v;
+        }
+
+        //Получаем URL для загрузки изображения для альбома
+        $response = $this->method("photos.getMarketAlbumUploadServer", $params);
+
+        if (isset($response) == false) {
+            print_r($response);
+            exit;
+        }
+        $server = $response->response->upload_url;
+
+        // Отправляем изображение на сервер
+        $json = $this->dispatchImageOnServerVk($file, $server);
+
+        // Сохраняем изображение для альбома
+        $albumPhoto = $this->method("photos.saveMarketAlbumPhoto", [
+                "group_id" => $group_id,
+                "photo" => $json->photo,
+                "server" => $json->server,
+                "hash" => $json->hash,
+                "v" => $v,
+            ]
+        );
+//        VarDumper::dump($albumPhoto,11,true);die();
+        if (isset($albumPhoto->response[0]->id)) {
+            $buf['photo_id'] = $albumPhoto->response[0]->id;
+        } else {
+            return false;
+        }
+
+        // Добавляет новую подборку с товарами.
+        $album = $this->method("market.addAlbum", [
+                "owner_id" => $owner_id,
+                "title" => 'test Album',
+                "photo_id" => $buf['photo_id'],
+                "v" => $v,
+            ]
+        );
+        sleep(3);
+        VarDumper::dump($album,11,true);
+    }
+
+    public function actionDeleteAlbum()
+    {
+        $owner_id = -20618894;
+        $album_id = 23;
+        $v = 5.131;
+
+        // Добавляет новую подборку с товарами.
+        $album = $this->method("market.deleteAlbum", [
+                "owner_id" => $owner_id,
+                "album_id" => $album_id,
+                "v" => $v,
+            ]
+        );
+        VarDumper::dump($album,11,true);
     }
 
     /**
-     * Делает запрос к Api VK
+     * Строим URL запрос к Api VK
      * @param $method
      * @param null $params
      * @return false|mixed
@@ -330,8 +394,7 @@ class ConnectController extends Controller
 
     public function dispatchImageOnServerVk($file, $server)
     {
-        //Отправляем изображение на сервер
-        $file = curl_file_create($file,'image/jpeg','gm1.jpg');
+        $file = curl_file_create($file,'image/jpeg','image.jpg');
         $ch = curl_init($server);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -342,6 +405,4 @@ class ConnectController extends Controller
         curl_close($ch);
         return json_decode($exec);
     }
-
-
 }

@@ -25,8 +25,6 @@ class ConnectVkApi extends Component
         $this->uploadImage();
     }
 
-
-
     public function uploadImage()
     {
 
